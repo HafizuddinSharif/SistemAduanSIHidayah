@@ -1,0 +1,14 @@
+{
+  "name": "sihidayah-sistem-aduan",
+  "version": "1.0.0",
+  "description": "Sistem aduan dan maklum balas Sekolah Islam Hidayah",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hafizuddin Sharif",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
