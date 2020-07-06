@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/buat-aduan.css">
+    <title>Buat Aduan</title>
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+      <ul>
+        <li><a href="#">Buat Aduan</a></li>
+        <li><a href="#">Semakan Aduan</a></li>
+        <li><a href="#">Tukar Kata Laluan</a></li>
+        <li class="logout">
+          <div class="logout2">
+            <a href="#">Log Keluar</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- BORANG BUAT ADUAN -->
+
+    <h1 class="header">Buat Aduan</h1>
+
+    <form class="aduan" action="/buat-aduan" method="post">
+
+      <div class="maklumat-pengadu">
+
+        <h3>Maklumat Pengadu</h3>
+
+        <table>
+          <tbody>
+            <tr>
+              <td><label for="no-aduan">No Aduan</label></td>
+              <td><input type="text" name="no-aduan" value=""></td>
+            </tr>
+            <tr>
+              <td><label for="id-pengguna">ID Pengguna</label></td>
+              <td><input type="text" name="id-pengguna" value=""></td>
+              <td><label for="nama-pengadu">Nama Pengadu</label></td>
+              <td><input type="text" name="nama-pengadu" value=""></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <div class="info-pengaduan">
+
+        <h3>Info Pengaduan</h3>
+
+        <table>
+          <tbody>
+            <tr>
+              <td><label for="jenis-aduan">Jenis Aduan</label></td>
+              <td>
+                <select class="" name="jenis-aduan">
+                  <option value="">Sila Pilih</option>
+                  <option value="">Option 1</option>
+                  <option value="">Option 2</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="kawasan">Kawasan</label></td>
+              <td>
+                <select class="" name="kawasan">
+                  <option value="">Sila Pilih</option>
+                  <option value="">Option 1</option>
+                  <option value="">Option 2</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="lokasi">Lokasi</label></td>
+              <td>
+                <select class="" name="lokasi">
+                  <option value="">Sila Pilih</option>
+                  <option value="">Option 1</option>
+                  <option value="">Option 2</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="jenis-aduan">Kategori</label></td>
+              <td>
+                <select class="" name="jenis-aduan">
+                  <option value="">Sila Pilih</option>
+                  <option value="">Option 1</option>
+                  <option value="">Option 2</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="item">Item</label></td>
+              <td><input type="text" name="item" value=""></td>
+            </tr>
+            <tr>
+              <td><label for="perihal">Perihal</label></td>
+              <td><textarea name="perihal" rows="8" cols="30"></textarea></td>
+            </tr>
+            <tr>
+              <td><label for="tarikh-aduan">Tarikh Aduan</label></td>
+              <td><input type="date" name="tarikh-aduan" value=""></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <button type="submit" name="hantar-aduan">Hantar Aduan</button>
+    </form>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,53 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+ul {
+  display: flex;
+  background-color: black;
+  padding: 20px 40px;
+  margin: 0;
+}
+
+li {
+  display: inline-flex;
+  padding-right: 60px;
+  list-style: none;
+}
+
+.logout {
+  flex-grow: 2;
+  padding-right: 0;
+  text-align: center;
+}
+
+.logout2 {
+  width: 100%;
+  text-align: right;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+form {
+  padding-left: 10%;
+  padding-bottom: 100px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+  padding: 5% 0 5% 10%;
+}
+
+.section {
+  font-size: 0.7rem;
+  padding: 10px 0;
+}
+
+td {
+  padding: 10px 0;
+}
