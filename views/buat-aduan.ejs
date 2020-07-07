@@ -28,6 +28,8 @@
 
     <form class="aduan" action="/buat-aduan" method="post">
 
+      <!-- MAKLUMAT PENGADU -->
+
       <div class="maklumat-pengadu">
 
         <h3>Maklumat Pengadu</h3>
@@ -36,18 +38,21 @@
           <tbody>
             <tr>
               <td><label for="no-aduan">No Aduan</label></td>
-              <td><input type="text" name="no-aduan" value=""></td>
+              <td><input class="no-aduan" type="text" name="no-aduan" value=""></td>
             </tr>
             <tr>
               <td><label for="id-pengguna">ID Pengguna</label></td>
-              <td><input type="text" name="id-pengguna" value=""></td>
+              <td><input class="id-pengguna" type="text" name="id-pengguna" value=""></td>
+
               <td><label for="nama-pengadu">Nama Pengadu</label></td>
-              <td><input type="text" name="nama-pengadu" value=""></td>
+              <td><input class="nama-pengadu" type="text" name="nama-pengadu" value=""></td>
             </tr>
           </tbody>
         </table>
 
       </div>
+
+      <!-- INFO PENGADUAN -->
 
       <div class="info-pengaduan">
 
@@ -112,10 +117,11 @@
 
       </div>
 
+      <!-- SUMBIT BUTTON -->
+
       <button type="submit" name="hantar-aduan">Hantar Aduan</button>
+
     </form>
-
-
 
   </body>
 </html>

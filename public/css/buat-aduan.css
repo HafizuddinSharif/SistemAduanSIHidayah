@@ -11,6 +11,15 @@ ul {
   margin: 0;
 }
 
+@media screen and (max-width: 800px) {
+  ul {
+    display: block;
+  }
+  li, a {
+    display: block;
+  }
+}
+
 li {
   display: inline-flex;
   padding-right: 60px;
@@ -39,8 +48,13 @@ form {
   font-family: 'Montserrat', sans-serif;
 }
 
+form h3 {
+  text-decoration: underline;
+  font-size: 1.1rem;
+}
+
 .header {
-  padding: 5% 0 5% 10%;
+  padding: 2% 0 2% 10%;
 }
 
 .section {
@@ -49,5 +63,39 @@ form {
 }
 
 td {
-  padding: 10px 0;
+  padding: 10px 30px 10px 0;
+  font-size: 0.8rem;
+  align-items: center;
+}
+
+select {
+  width: 150px;
+  height: 20px;
+  border-radius: 3px;
+  border: 0.1px solid black;
+}
+
+.no-aduan, .id-pengguna {
+  width: 50px;
+  border-radius: 3px;
+  border: 0.1px solid black;
+}
+
+input {
+  height: 20px;
+  border-radius: 3px;
+  border: 0.1px solid black;
+}
+
+.nama-pengadu {
+  width: 150%;
+}
+
+button {
+  margin-top: 30px;
+  padding: 5px 30px;
+  background-color: #0F7A8A;
+  color: #D9D9D9;
+  border-radius: 3px;
+  border: none;
 }
