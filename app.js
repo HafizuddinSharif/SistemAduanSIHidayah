@@ -14,16 +14,20 @@ app.get("/aduan", function(req, res) {
   res.render("log-masuk")
 })
 
-app.get("/aduan/buat-aduan", function(req, res) {
+app.get("/aduan/user/buat-aduan", function(req, res) {
   res.render("buat-aduan")
 })
 
-app.get("/aduan/semakan-aduan", function(req, res) {
+app.get("/aduan/user/semakan-aduan", function(req, res) {
   res.render("semakan-aduan")
 })
 
-app.get("/aduan/tukar-katalaluan", function(req, res) {
+app.get("/aduan/user/tukar-katalaluan", function(req, res) {
   res.render("tukar-katalaluan")
+})
+
+app.get("/aduan/admin/direktori-pengguna", function(req, res) {
+  res.render("direktori-pengguna")
 })
 
 
