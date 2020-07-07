@@ -22,6 +22,10 @@ app.get("/aduan/semakan-aduan", function(req, res) {
   res.render("semakan-aduan")
 })
 
+app.get("/aduan/tukar-katalaluan", function(req, res) {
+  res.render("tukar-katalaluan")
+})
+
 
 app.listen(3000, function() {
   console.log("Server started on port 3000")

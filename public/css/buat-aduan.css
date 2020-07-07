@@ -11,15 +11,6 @@ ul {
   margin: 0;
 }
 
-@media screen and (max-width: 800px) {
-  ul {
-    display: block;
-  }
-  li, a {
-    display: block;
-  }
-}
-
 li {
   display: inline-flex;
   padding-right: 60px;
@@ -98,4 +89,19 @@ button {
   color: #D9D9D9;
   border-radius: 3px;
   border: none;
+}
+
+@media screen and (max-width: 800px) {
+
+  .container {
+    text-align: center;
+  }
+
+  .center-table {
+    margin: auto;
+  }
+
+  .header, form {
+    padding-left: 0;
+  }
 }
