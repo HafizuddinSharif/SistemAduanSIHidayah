@@ -1,0 +1,127 @@
+/* GLOBAL */
+
+body {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* NAVBAR */
+
+ul {
+  display: flex;
+  background-color: black;
+  padding: 20px 40px;
+  margin: 0;
+}
+
+li {
+  display: inline-flex;
+  padding-right: 60px;
+  list-style: none;
+}
+
+.logout {
+  flex-grow: 2;
+  padding-right: 0;
+  text-align: center;
+}
+
+.logout2 {
+  width: 100%;
+  text-align: right;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.header {
+  font-size: 2rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* JADUAL SENARAI ADUAN */
+
+.container {
+  height: 300px;
+  margin: 0 auto;
+}
+
+.senarai-no-aduan, .senarai-no-aduan th, .senarai-no-aduan td {
+  border: 0.1px solid black;
+  border-collapse: collapse;
+}
+
+.senarai-no-aduan tr:hover {
+  background-color: #D9D9D9;
+}
+
+.senarai-no-aduan {
+  margin: auto;
+}
+
+.borderless td {
+  font-size: 1rem;
+  border: none;
+  text-align: left;
+  padding: 3px 0;
+}
+
+tr td:last-child {
+  width: 250px;
+}
+
+tr td:first-child {
+  font-weight: bold;
+  width: 150px;
+  padding: 5px 0;
+}
+
+.borderless {
+  margin: auto;
+}
+
+.table-jenis-aduan {
+  width: 200px;
+}
+
+.grey {
+  width: 400px;
+}
+
+.space {
+  margin-bottom: 100px;
+}
+
+.longer {
+  height: auto;
+}
+
+h3 {
+  text-decoration: underline;
+}
+
+td img {
+  width: 200px;
+}
+
+@media screen and (min-width: 700px) {
+
+  body {
+    text-align: left;
+  }
+
+  .flexbox {
+    text-align: left;
+    display: flex;
+  }
+
+  .header {
+    margin-left: 5%;
+  }
+
+}
