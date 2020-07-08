@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/buat-aduan.css">
+    <title>Maklumat Staf</title>
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+      <ul>
+        <li><a href="#">Buat Aduan</a></li>
+        <li><a href="#">Semakan Aduan</a></li>
+        <li><a href="#">Tukar Kata Laluan</a></li>
+        <li class="logout">
+          <div class="logout2">
+            <a href="#">Log Keluar</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container">
+
+      <h1 class="header">Maklumat Staf</h1>
+
+      <form class="" action="/" method="post">
+
+        <!-- INFO -->
+
+        <h3>Info</h3>
+
+        <table class="center-table">
+          <tbody>
+
+            <tr>
+              <td><label for="id-pengguna">ID Pengguna</label></td>
+              <td><input type="text" name="id-pengguna" value=""></td>
+            </tr>
+
+            <tr>
+              <td><label for="katalaluan">Kata Laluan</label></td>
+              <td><input type="password" name="katalaluan" value=""></td>
+            </tr>
+
+            <tr>
+              <td><label for="jenis-id">Jenis ID</label></td>
+              <td><select class="" name="jenis-id">
+                <option value="0">Sila Pilih</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+              </select></td>
+            </tr>
+
+            <tr>
+              <td><label for="nama-staf">Nama Staf</label></td>
+              <td><input type="text" name="nama-staf" value=""></td>
+            </tr>
+
+            <tr>
+              <td><label for="emel">Emel</label></td>
+              <td><input type="email" name="emel" value=""></td>
+            </tr>
+
+            <tr>
+              <td><label for="no-telefon">No Telefon</label></td>
+              <td><input type="text" name="no-telefon" value=""></td>
+            </tr>
+
+            <tr>
+              <td><label for="jawatan">Jawatan</label></td>
+              <td class="radio">
+
+                <label for="pengetua" class="container2">Pengetua
+                  <input type="radio" name="jawatan" value="Pengetua" id="pengetua">
+                  <span class="checkmark"></span>
+                </label>
+
+                <label for="guru-besar" class="container2">Guru Besar
+                  <input type="radio" name="jawatan" value="Guru Besar" id="guru-besar">
+                  <span class="checkmark"></span>
+                </label>
+
+                <label for="pentadbiran" class="container2">Pentadbiran
+                  <input type="radio" name="jawatan" value="Pentadbiran" id="pentadbiran">
+                  <span class="checkmark"></span>
+                </label>
+
+                <label for="guru" class="container2">Guru
+                  <input type="radio" name="jawatan" value="Guru" id="guru">
+                  <span class="checkmark"></span>
+                </label>
+
+                <label for="kba" class="container2">KBA
+                  <input type="radio" name="jawatan" value="KBA" id="kba">
+                  <span class="checkmark"></span>
+                </label>
+
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <!-- BIDANG TUGAS STAF -->
+
+        <h3>Bidang Tugas Staf</h3>
+
+        <table class="center-table">
+          <tbody>
+
+            <tr>
+              <td class="radio">
+                <label for="senggara" class="container2">Senggara
+                  <input type="radio" name="bidang-tugas" value="Senggara" id="senggara">
+                  <span class="checkmark"></span>
+                </label>
+              </td>
+              <td class="radio">
+                <label for="perkebunan" class="container2">Perkebunan
+                  <input type="radio" name="bidang-tugas" value="Perkebunan" id="perkebunan">
+                  <span class="checkmark"></span>
+                </label>
+              </td>
+
+            </tr>
+
+            <tr>
+              <td class="radio">
+                <label for="kebersihan" class="container2">Kebersihan
+                  <input type="radio" name="bidang-tugas" value="Kebersihan" id="kebersihan">
+                  <span class="checkmark"></span>
+                </label>
+              </td>
+              <td class="radio">
+                <label for="it" class="container2">IT
+                  <input type="radio" name="bidang-tugas" value="IT" id="it">
+                  <span class="checkmark"></span>
+                </label>
+              </td>
+
+            </tr>
+
+          </tbody>
+        </table>
+
+        <button type="submit" name="simpan">Simpan</button>
+        <button type="submit" name="hapus">Hapus</button>
+
+      </form>
+
+    </div>
+  </body>
+</html>
