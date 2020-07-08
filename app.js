@@ -34,6 +34,10 @@ app.get("/aduan/admin/direktori-pengguna/maklumat-staf", function(req, res) {
   res.render("maklumat-staf")
 })
 
+app.get("/aduan/user/tindakan", function(req, res) {
+  res.render("tindakan")
+})
+
 
 app.listen(3000, function() {
   console.log("Server started on port 3000")

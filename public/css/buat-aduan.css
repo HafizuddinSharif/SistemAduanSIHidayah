@@ -106,9 +106,9 @@ thead tr th:last-child {
 }
 
 /* HOVER ON SELECTED ROW OF TABLE */
-/* tbody tr:hover {
+.clickable-row tr:hover {
   background-color: #D9D9D9;
-} */
+}
 
 .direktori {
   border-spacing: 0;
