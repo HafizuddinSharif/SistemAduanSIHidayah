@@ -7,46 +7,9 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-/* NAVBAR */
-
-ul {
-  display: flex;
-  background-color: black;
-  padding: 20px 40px;
-  margin: 0;
-}
-
-li {
-  display: inline-flex;
-  padding-right: 60px;
-  list-style: none;
-}
-
-.logout {
-  flex-grow: 2;
-  padding-right: 0;
-  text-align: center;
-}
-
-.logout2 {
-  width: 100%;
-  text-align: right;
-}
-
-a {
-  text-decoration: none;
-  color: white;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.header {
-  font-size: 2rem;
-  font-family: 'Open Sans', sans-serif;
-}
-
 /* JADUAL SENARAI ADUAN */
 
-.container {
+.container3 {
   height: 300px;
   margin: 0 auto;
 }
