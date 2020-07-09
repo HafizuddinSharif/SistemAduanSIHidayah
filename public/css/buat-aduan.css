@@ -4,33 +4,28 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-ul {
-  display: flex;
+nav {
   background-color: black;
   padding: 20px 40px;
   margin: 0;
 }
 
-li {
-  display: inline-flex;
-  padding-right: 60px;
-  list-style: none;
-}
-
-.logout {
-  flex-grow: 2;
-  padding-right: 0;
-  text-align: center;
-}
-
-.logout2 {
-  width: 100%;
-  text-align: right;
-}
-
 a {
   text-decoration: none;
   color: white;
+  margin-right: 30px;
+}
+
+.burger {
+  visibility: hidden;
+  cursor: pointer;
+  width: 0;
+  display: inline-block;
+}
+
+.log-keluar {
+  position: absolute;
+  right: 0;
 }
 
 form, .inner-container {
@@ -206,4 +201,30 @@ thead tr th:last-child {
     display: block;
     padding-bottom: 20px;
   }
+
+  nav a {
+    position: absolute;
+    visibility: hidden;
+    z-index: 0;
+  }
+
+  .log-keluar {
+    position: absolute;
+  }
+
+  .burger {
+    display: inline;
+    width: 100px;
+    height: 10px;
+    visibility: visible;
+    color: white;
+    z-index: 1;
+  }
+}
+
+.appear {
+  visibility: visible;
+  display: block;
+  position: static;
+  margin: 10px 0;
 }
