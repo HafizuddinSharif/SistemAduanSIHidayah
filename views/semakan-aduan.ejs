@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/semakan-aduan.css">
+    <link rel="stylesheet" href="/css/buat-aduan.css">
     <title>Semakan Aduan</title>
   </head>
   <body>
@@ -10,16 +10,11 @@
     <!-- NAVBAR -->
 
     <nav>
-      <ul>
-        <li><a href="#">Buat Aduan</a></li>
-        <li><a href="#">Semakan Aduan</a></li>
-        <li><a href="#">Tukar Kata Laluan</a></li>
-        <li class="logout">
-          <div class="logout2">
-            <a href="#">Log Keluar</a>
-          </div>
-        </li>
-      </ul>
+      <span class="burger">Menu</span>
+      <a href="#">Buat Aduan</a>
+      <a href="#">Semakan Aduan</a>
+      <a href="#">Tukar katalaluan</a>
+      <a class="log-keluar" href="#">Log Keluar</a>
     </nav>
 
       <h1 class="header">Semakan Aduan</h1>
@@ -29,7 +24,7 @@
 
       <!-- SENARAI ADUAN -->
 
-      <div class="container grey">
+      <div class="container3 grey">
 
 
 
@@ -52,7 +47,7 @@
 
       </div>
 
-      <div class="container longer">
+      <div class="container3 longer">
 
         <!-- INFO ADUAN -->
 
@@ -86,7 +81,7 @@
               </tr>
               <tr>
                 <td>Gambar</td>
-                <td><img src="../images/tandas.jfif" alt="Gambar tandas"></td>
+                <td><img src="/public/images/tandas.jfif" alt="Gambar tandas"></td>
               </tr>
             </tbody>
         </table>
@@ -125,6 +120,8 @@
 
     <div class="space"></div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/public/javascript/navbar.js"></script>
 
   </body>
 </html>
