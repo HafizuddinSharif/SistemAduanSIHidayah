@@ -39,10 +39,6 @@ form h3, .inner-container h3 {
   font-size: 1.1rem;
 }
 
-.header {
-  padding: 2% 0 2% 10%;
-}
-
 .section {
   font-size: 0.7rem;
   padding: 10px 0;
@@ -74,7 +70,7 @@ input {
 }
 
 .nama-pengadu {
-  width: 150%;
+  width: 100%;
 }
 
 button {
@@ -183,45 +179,6 @@ thead tr th:last-child {
   user-select: none;
 }
 
-@media screen and (max-width: 800px) {
-
-  .container {
-    text-align: center;
-  }
-
-  .center-table {
-    margin: auto;
-  }
-
-  .header, form {
-    padding-left: 0;
-  }
-
-  .container2 {
-    display: block;
-    padding-bottom: 20px;
-  }
-
-  nav a {
-    position: absolute;
-    visibility: hidden;
-    z-index: 0;
-  }
-
-  .log-keluar {
-    position: absolute;
-  }
-
-  .burger {
-    display: inline;
-    width: 100px;
-    height: 10px;
-    visibility: visible;
-    color: white;
-    z-index: 1;
-  }
-}
-
 .appear {
   visibility: visible;
   display: block;
@@ -246,7 +203,7 @@ thead tr th:last-child {
 }
 
 .senarai-no-aduan {
-  margin: auto;
+  margin-left: 15%;
 }
 
 .borderless td {
@@ -256,9 +213,9 @@ thead tr th:last-child {
   padding: 3px 0;
 }
 
-tr td:last-child {
-  width: 250px;
-}
+/* tr td:last-child {
+  width: auto;
+} */
 
 tr td:first-child {
   font-weight: bold;
@@ -267,7 +224,8 @@ tr td:first-child {
 }
 
 .borderless {
-  margin: auto;
+  margin-left: 15%;
+  width: 80%;
 }
 
 .table-jenis-aduan {
@@ -294,19 +252,67 @@ td img {
   width: 200px;
 }
 
-@media screen and (min-width: 700px) {
+/* SEMAKAN ADUAN */
 
-  body {
-    text-align: left;
+.flexbox {
+  text-align: left;
+  display: flex;
+}
+
+.header {
+  margin-left: 5%;
+  padding: 2% 0 2% 10%;
+}
+
+.extra-space {
+  padding-bottom: 30px;
+}
+
+@media screen and (max-width: 800px) {
+
+  .header {
+    margin: 20px 0;
+    padding: 0;
+  }
+
+  .container {
+    text-align: center;
+  }
+
+  .center-table {
+    margin: auto;
+  }
+
+
+  .container2 {
+    display: block;
+    padding-bottom: 20px;
+  }
+
+  nav a {
+    position: absolute;
+    visibility: hidden;
+    z-index: 0;
+  }
+
+  .log-keluar {
+    position: static;
+  }
+
+  .burger {
+    display: inline;
+    width: 100px;
+    height: 10px;
+    visibility: visible;
+    color: white;
+    z-index: 1;
   }
 
   .flexbox {
-    text-align: left;
-    display: flex;
+    display: block;
   }
 
-  .header {
-    margin-left: 5%;
+  .senarai-no-aduan {
+    margin: auto;
   }
-
 }

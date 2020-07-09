@@ -17,106 +17,112 @@
       <a class="log-keluar" href="#">Log Keluar</a>
     </nav>
 
-    <!-- BORANG BUAT ADUAN -->
+    <div class="container">
 
-    <h1 class="header">Buat Aduan</h1>
+      <!-- BORANG BUAT ADUAN -->
 
-    <form class="aduan" action="/buat-aduan" method="post">
+      <h1 class="header">Buat Aduan</h1>
 
-      <!-- MAKLUMAT PENGADU -->
+      <form class="aduan" action="/buat-aduan" method="post">
 
-      <div class="maklumat-pengadu">
+        <!-- MAKLUMAT PENGADU -->
 
-        <h3>Maklumat Pengadu</h3>
+        <div class="maklumat-pengadu">
 
-        <table>
-          <tbody>
-            <tr>
-              <td><label for="no-aduan">No Aduan</label></td>
-              <td><input class="no-aduan" type="text" name="no-aduan" value=""></td>
-            </tr>
-            <tr>
-              <td><label for="id-pengguna">ID Pengguna</label></td>
-              <td><input class="id-pengguna" type="text" name="id-pengguna" value=""></td>
+          <h3>Maklumat Pengadu</h3>
 
-              <td><label for="nama-pengadu">Nama Pengadu</label></td>
-              <td><input class="nama-pengadu" type="text" name="nama-pengadu" value=""></td>
-            </tr>
-          </tbody>
-        </table>
+          <table class="center-table">
+            <tbody>
+              <tr>
+                <td><label for="no-aduan">No Aduan</label></td>
+                <td><input class="no-aduan" type="text" name="no-aduan" value=""></td>
+              </tr>
+              <tr>
+                <td><label for="id-pengguna">ID Pengguna</label></td>
+                <td><input class="id-pengguna" type="text" name="id-pengguna" value=""></td>
 
-      </div>
+                <td><label for="nama-pengadu">Nama Pengadu</label></td>
+                <td class="nama-pengadu-input"><input class="nama-pengadu" type="text" name="nama-pengadu" value=""></td>
+              </tr>
+            </tbody>
+          </table>
 
-      <!-- INFO PENGADUAN -->
+        </div>
 
-      <div class="info-pengaduan">
+        <!-- INFO PENGADUAN -->
 
-        <h3>Info Pengaduan</h3>
+        <div class="info-pengaduan">
 
-        <table>
-          <tbody>
-            <tr>
-              <td><label for="jenis-aduan">Jenis Aduan</label></td>
-              <td>
-                <select class="" name="jenis-aduan">
-                  <option value="">Sila Pilih</option>
-                  <option value="">Option 1</option>
-                  <option value="">Option 2</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td><label for="kawasan">Kawasan</label></td>
-              <td>
-                <select class="" name="kawasan">
-                  <option value="">Sila Pilih</option>
-                  <option value="">Option 1</option>
-                  <option value="">Option 2</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td><label for="lokasi">Lokasi</label></td>
-              <td>
-                <select class="" name="lokasi">
-                  <option value="">Sila Pilih</option>
-                  <option value="">Option 1</option>
-                  <option value="">Option 2</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td><label for="jenis-aduan">Kategori</label></td>
-              <td>
-                <select class="" name="jenis-aduan">
-                  <option value="">Sila Pilih</option>
-                  <option value="">Option 1</option>
-                  <option value="">Option 2</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td><label for="item">Item</label></td>
-              <td><input type="text" name="item" value=""></td>
-            </tr>
-            <tr>
-              <td><label for="perihal">Perihal</label></td>
-              <td><textarea name="perihal" rows="8" cols="30"></textarea></td>
-            </tr>
-            <tr>
-              <td><label for="tarikh-aduan">Tarikh Aduan</label></td>
-              <td><input type="date" name="tarikh-aduan" value=""></td>
-            </tr>
-          </tbody>
-        </table>
+          <h3>Info Pengaduan</h3>
 
-      </div>
+          <table class="center-table">
+            <tbody>
+              <tr>
+                <td><label for="jenis-aduan">Jenis Aduan</label></td>
+                <td>
+                  <select class="" name="jenis-aduan">
+                    <option value="">Sila Pilih</option>
+                    <option value="">Option 1</option>
+                    <option value="">Option 2</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label for="kawasan">Kawasan</label></td>
+                <td>
+                  <select class="" name="kawasan">
+                    <option value="">Sila Pilih</option>
+                    <option value="">Option 1</option>
+                    <option value="">Option 2</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label for="lokasi">Lokasi</label></td>
+                <td>
+                  <select class="" name="lokasi">
+                    <option value="">Sila Pilih</option>
+                    <option value="">Option 1</option>
+                    <option value="">Option 2</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label for="jenis-aduan">Kategori</label></td>
+                <td>
+                  <select class="" name="jenis-aduan">
+                    <option value="">Sila Pilih</option>
+                    <option value="">Option 1</option>
+                    <option value="">Option 2</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label for="item">Item</label></td>
+                <td><input type="text" name="item" value=""></td>
+              </tr>
+              <tr>
+                <td><label for="perihal">Perihal</label></td>
+                <td><textarea name="perihal" rows="8" cols="30"></textarea></td>
+              </tr>
+              <tr>
+                <td><label for="tarikh-aduan">Tarikh Aduan</label></td>
+                <td><input type="date" name="tarikh-aduan" value=""></td>
+              </tr>
+            </tbody>
+          </table>
 
-      <!-- SUMBIT BUTTON -->
+        </div>
 
-      <button type="submit" name="hantar-aduan">Hantar Aduan</button>
+        <!-- SUMBIT BUTTON -->
 
-    </form>
+        <button type="submit" name="hantar-aduan">Hantar Aduan</button>
+
+      </form>
+
+    </div>
+
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/public/javascript/navbar.js"></script>

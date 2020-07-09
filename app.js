@@ -21,8 +21,16 @@ app.get("/aduan/user/buat-aduan", function(req, res) {
   res.render("buat-aduan")
 })
 
-app.get("/aduan/user/semakan-aduan", function(req, res) {
-  res.render("semakan-aduan")
+// app.get("/aduan/user/semakan-aduan", function(req, res) {
+//   res.render("semakan-aduan")
+// })
+
+app.get("/aduan/user/semakan-aduan/senarai-aduan", function(req, res) {
+  res.render("senarai-aduan")
+})
+
+app.get("/aduan/user/semakan-aduan/senarai-aduan/info-aduan", function(req, res) {
+  res.render("info-aduan")
 })
 
 app.get("/aduan/user/tukar-katalaluan", function(req, res) {
