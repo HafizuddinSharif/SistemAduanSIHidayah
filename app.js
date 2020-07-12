@@ -2,6 +2,7 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
+var mysql      = require('mysql');
 
 const app = express()
 
@@ -13,8 +14,30 @@ app.use(express.static(__dirname + "/public"))
 
 app.use("/public", express.static('public'))
 
+// Establishing connection to database
+
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'password'
+});
+
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+
+  console.log('connected as id ' + connection.threadId);
+});
+
+
 app.get("/aduan", function(req, res) {
   res.render("log-masuk")
+})
+
+app.post("/aduan", function(req, res) {
+
 })
 
 app.get("/aduan/user/buat-aduan", function(req, res) {
@@ -47,6 +70,10 @@ app.get("/aduan/admin/direktori-pengguna/maklumat-staf", function(req, res) {
 
 app.get("/aduan/user/tindakan", function(req, res) {
   res.render("tindakan")
+})
+
+app.get("/aduan/user/tindakan/tindakan-lengkap", function(req, res) {
+  res.render("tindakan-lengkap")
 })
 
 
