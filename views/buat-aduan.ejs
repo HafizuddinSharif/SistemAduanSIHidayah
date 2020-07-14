@@ -34,15 +34,15 @@
           <table class="center-table">
             <tbody>
               <tr>
-                <td><label for="no-aduan">No Aduan</label></td>
-                <td><input class="no-aduan" type="text" name="no-aduan" value=""></td>
+                <td><label for="no_aduan">No Aduan</label></td>
+                <td><input class="no-aduan" type="text" name="no_aduan" value=""></td>
               </tr>
               <tr>
-                <td><label for="id-pengguna">ID Pengguna</label></td>
-                <td><input class="id-pengguna" type="text" name="id-pengguna" value=""></td>
+                <td><label for="id_pengguna">ID Pengguna</label></td>
+                <td><input class="id-pengguna" type="text" name="id_pengguna" value=""></td>
 
-                <td><label for="nama-pengadu">Nama Pengadu</label></td>
-                <td class="nama-pengadu-input"><input class="nama-pengadu" type="text" name="nama-pengadu" value=""></td>
+                <td><label for="nama_pengadu">Nama Pengadu</label></td>
+                <td class="nama-pengadu-input"><input class="nama-pengadu" type="text" name="nama_pengadu" value=""></td>
               </tr>
             </tbody>
           </table>
@@ -58,12 +58,14 @@
           <table class="center-table">
             <tbody>
               <tr>
-                <td><label for="jenis-aduan">Jenis Aduan</label></td>
+                <td><label for="jenis_aduan">Jenis Aduan</label></td>
                 <td>
-                  <select class="" name="jenis-aduan">
+                  <select class="" name="jenis_aduan">
                     <option value="">Sila Pilih</option>
-                    <option value="">Option 1</option>
-                    <option value="">Option 2</option>
+                    <option value="Senggara">Senggara</option>
+                    <option value="Kebersihan">Kebersihan</option>
+                    <option value="Perkebunan">Perkebunan</option>
+                    <option value="IT">IT</option>
                   </select>
                 </td>
               </tr>
@@ -72,8 +74,9 @@
                 <td>
                   <select class="" name="kawasan">
                     <option value="">Sila Pilih</option>
-                    <option value="">Option 1</option>
-                    <option value="">Option 2</option>
+                    <% rowsOfKawasan.forEach( function(row) { %>
+                    <option value="<%= row.PK_Kawasan %>"><%= row.Nama_Kawasan %> </option>
+                    <% }) %>
                   </select>
                 </td>
               </tr>
@@ -82,32 +85,41 @@
                 <td>
                   <select class="" name="lokasi">
                     <option value="">Sila Pilih</option>
-                    <option value="">Option 1</option>
-                    <option value="">Option 2</option>
+                    <% rowsOfLokasi.forEach( function(row) { %>
+                    <option value="<%= row.PK_Lokasi %>"><%= row.Nama_Lokasi %> </option>
+                    <% }) %>
                   </select>
                 </td>
               </tr>
               <tr>
-                <td><label for="jenis-aduan">Kategori</label></td>
+                <td><label for="kategori">Kategori</label></td>
                 <td>
-                  <select class="" name="jenis-aduan">
+                  <select class="" name="kategori">
                     <option value="">Sila Pilih</option>
-                    <option value="">Option 1</option>
-                    <option value="">Option 2</option>
+                    <% rowsOfKategori.forEach( function(row) { %>
+                    <option value="<%= row.PK_Kategori %>"><%= row.Nama_Kategori %> </option>
+                    <% }) %>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td><label for="item">Item</label></td>
-                <td><input type="text" name="item" value=""></td>
+                <td>
+                  <select class="" name="item">
+                    <option value="">Sila Pilih</option>
+                    <% rowsOfItem.forEach( function(row) { %>
+                    <option value="<%= row.PK_Peralatan %>"><%= row.Nama_Peralatan %> </option>
+                    <% }) %>
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td><label for="perihal">Perihal</label></td>
                 <td><textarea name="perihal" rows="8" cols="30"></textarea></td>
               </tr>
               <tr>
-                <td><label for="tarikh-aduan">Tarikh Aduan</label></td>
-                <td><input type="date" name="tarikh-aduan" value=""></td>
+                <td><label for="tarikh_aduan">Tarikh Aduan</label></td>
+                <td><input type="date" name="tarikh_aduan" value=""></td>
               </tr>
             </tbody>
           </table>
@@ -116,7 +128,7 @@
 
         <!-- SUMBIT BUTTON -->
 
-        <button type="submit" name="hantar-aduan">Hantar Aduan</button>
+        <button type="submit" name="hantar_aduan">Hantar Aduan</button>
 
       </form>
 

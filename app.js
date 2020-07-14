@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
+const ejs = require('ejs');
 
 const app = express()
 
@@ -35,6 +36,10 @@ connection.connect(function(err) {
   console.log('connected as id ' + connection.threadId);
 });
 
+// VARIABLES
+
+var user = ""
+
 
 // GET Requests
 
@@ -42,8 +47,33 @@ app.get("/aduan", function(req, res) {
   res.render("log-masuk")
 })
 
-app.get("/aduan/user/buat-aduan", function(req, res) {
-  res.render("buat-aduan")
+app.get("/aduan/:user_name/buat-aduan", function(req, res) {
+
+  let sql1 = `SELECT PK_Kawasan, Nama_Kawasan FROM kawasan`
+  let sql2 = `SELECT PK_Lokasi, Nama_Lokasi FROM lokasi`
+  let sql3 = `SELECT PK_Kategori, Nama_Kategori FROM kategori`
+  let sql4 = `SELECT PK_Peralatan, Nama_Peralatan FROM senarai_peralatan`
+
+  connection.query(sql1 , function(err, rowsOfKawasan) {
+
+    connection.query(sql2, function(err, rowsOfLokasi) {
+
+      connection.query(sql3, function(err, rowsOfKategori) {
+
+        connection.query(sql4, function(err, rowsOfItem) {
+
+          let obj = {rowsOfKawasan: rowsOfKawasan, rowsOfLokasi: rowsOfLokasi, rowsOfKategori: rowsOfKategori, rowsOfItem: rowsOfItem}
+
+          res.render("buat-aduan", obj)
+
+        })
+
+      })
+
+    })
+
+  })
+
 })
 
 // app.get("/aduan/user/semakan-aduan", function(req, res) {
@@ -82,11 +112,10 @@ app.get("/aduan/user/tindakan/tindakan-lengkap", function(req, res) {
 
 app.post("/log-masuk", function(req, res) {
 
-  let user = req.body.id
+  user = req.body.id
   let password = req.body.pass
 
-  let sql = "SELECT ID_Pengguna, Kata_laluan FROM direktori_pengguna WHERE ID_Pengguna = '" +
-  user + "'"
+  let sql = `SELECT ID_Pengguna, Kata_laluan FROM direktori_pengguna WHERE ID_Pengguna = '${user}'`
 
   connection.query(sql, function (error, results, fields) {
 
@@ -97,7 +126,7 @@ app.post("/log-masuk", function(req, res) {
       if (err) throw err;
 
       if (result) {
-        res.redirect("/aduan/user/buat-aduan");
+        res.redirect(`/aduan/${user}/buat-aduan`);
       } else {
         res.redirect("/aduan");
       }
@@ -121,8 +150,8 @@ app.post("/daftar", function(req, res) {
     var bidang_tugas = req.body.bidang_tugas;
     var jenis_id = req.body.jenis_id;
 
-    var created_date = new Date();
-    var date = "" + created_date.getFullYear() + "-" + created_date.getMonth() + "-" + created_date.getDate()
+    var tarikh_daftar = new Date();
+    var date = "" + tarikh_daftar.getFullYear() + "-" + tarikh_daftar.getMonth() + "-" + tarikh_daftar.getDate()
 
 
   var sql = "INSERT INTO direktori_pengguna (ID_Pengguna, Kata_Laluan, Nama_Staf, No_Telefon, Jawatan, Emel, Bidang_Tugas, Created_Date, Jenis_ID) VALUES ('" +
@@ -146,6 +175,36 @@ app.post("/daftar", function(req, res) {
   });
 
 });
+
+app.post("/buat-aduan", function(req, res) {
+
+  let no_aduan = req.body.no_aduan;
+  let id_pengguna = req.body.id_pengguna;
+  let nama_pengadu = req.body.nama_pengadu;
+  let jenis_aduan = req.body.jenis_aduan;
+  let kawasan = req.body.kawasan;
+  let lokasi = req.body.lokasi;
+  let kategori = req.body.kategori;
+  let item = req.body.item;
+  let perihal = req.body.perihal;
+  let tarikh_aduan = req.body.tarikh_aduan;
+
+  // let tarikh_aduan = new Date();
+  // let date = "" + tarikh_aduan.getFullYear() + "-" + tarikh_aduan.getMonth() + "-" + tarikh_aduan.getDate()
+
+  // console.log(no_aduan, id_pengguna, nama_pengadu, jenis_aduan, kawasan, lokasi, kategori, item, perihal, tarikh_aduan)
+
+  let columns = `No_Aduan, Tarikh_Aduan, FK_Pengadu, FK_Kawasan, FK_Lokasi, Catatan_Kerosakan, FK_Rujukan_Item`
+  let values = `'${no_aduan}', '${tarikh_aduan}', '${id_pengguna}', '${kawasan}', '${lokasi}', '${perihal}', '${item}'`
+  let sql = `INSERT INTO aduan (${columns}) VALUES (${values})`
+
+  connection.query(sql, function(err, results) {
+
+    res.redirect(`/aduan/${user}/buat-aduan`)
+
+  })
+
+})
 
 
 app.listen(3000, function() {
