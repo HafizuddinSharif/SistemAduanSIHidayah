@@ -1,3 +1,5 @@
+// Handling the Navbar opening animation
+
 var appear = false
 
 $(".burger").on("click", function(event) {
@@ -13,5 +15,15 @@ $(".burger").on("click", function(event) {
     $("nav a").removeClass("appear")
     $(".burger").text("Menu")
   }
+
+})
+
+// Handling when direktori pengguna table is clicked on one of its row
+
+$(".clickable-row tr").on("click", function(event) {
+
+  $(".clickable-row tr").removeClass("clicked-row")
+
+  $(this).addClass("clicked-row")
 
 })

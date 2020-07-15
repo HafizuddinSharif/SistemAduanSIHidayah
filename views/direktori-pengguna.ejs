@@ -36,32 +36,21 @@
             </tr>
           </thead>
           <tbody class="clickable-row">
+            <% rowsOfStaf.forEach(function(row){ %>
             <tr>
-              <td>1</td>
-              <td>Staf</td>
-              <td>Hafizuddin</td>
+              <td><%= row.ID %></td>
+              <td><%= row.Jawatan %></td>
+              <td><%= row.Nama_Staf %> </td>
             </tr>
-            <tr>
-              <td>2</td>
-              <td>Staf</td>
-              <td>Hafizuddin</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Staf</td>
-              <td>Hafizuddin</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Staf</td>
-              <td>Hafizuddin</td>
-            </tr>
+            <% }) %>
           </tbody>
         </table>
 
         <div class="group-buttons">
 
-          <button type="button" name="tambah">Tambah</button>
+          <a href="/aduan/admin/direktori-pengguna/maklumat-staf">
+            <button type="button" name="tambah">Tambah</button>
+          </a>
           <button type="button" name="hapus">Hapus</button>
 
         </div>

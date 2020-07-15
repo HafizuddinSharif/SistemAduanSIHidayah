@@ -93,7 +93,17 @@ app.get("/aduan/user/tukar-katalaluan", function(req, res) {
 })
 
 app.get("/aduan/admin/direktori-pengguna", function(req, res) {
-  res.render("direktori-pengguna")
+
+  let sql = `SELECT ID, Nama_Staf, Jawatan FROM direktori_pengguna`
+
+  connection.query(sql, function(req, rowsOfStaf) {
+
+    let obj = {rowsOfStaf: rowsOfStaf}
+
+    res.render("direktori-pengguna", obj)
+
+  })
+
 })
 
 app.get("/aduan/admin/direktori-pengguna/maklumat-staf", function(req, res) {
