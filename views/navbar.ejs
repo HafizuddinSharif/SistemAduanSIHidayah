@@ -1,12 +1,7 @@
-    <nav>
-      <ul>
-        <li><a href="#">Buat Aduan</a></li>
-        <li><a href="#">Semakan Aduan</a></li>
-        <li><a href="#">Tukar Kata Laluan</a></li>
-        <li class="logout">
-          <div class="logout2">
-            <a href="#">Log Keluar</a>
-          </div>
-        </li>
-      </ul>
-    </nav>
+      <nav>
+        <span class="burger">Menu</span>
+        <a href="/aduan/<%= user %>/buat-aduan">Buat Aduan</a>
+        <a href="/aduan/<%= user %>/semakan-aduan/senarai-aduan">Semakan Aduan</a>
+        <a href="/aduan/<%= user %>/tukar-katalaluan">Tukar katalaluan</a>
+        <a class="log-keluar" href="/aduan">Log Keluar</a>
+      </nav>

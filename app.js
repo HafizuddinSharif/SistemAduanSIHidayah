@@ -40,15 +40,21 @@ connection.connect(function(err) {
 
 var user = ""
 var id = 0
+var logged = false
 
 
 // GET Requests
 
 app.get("/aduan", function(req, res) {
+
+  logged = false
+  user = ""
+  id = 0
+
   res.render("log-masuk")
 })
 
-app.get("/aduan/:user_name/buat-aduan", function(req, res) {
+app.get("/aduan/:user/buat-aduan", function(req, res) {
 
   let sql1 = `SELECT PK_Kawasan, Nama_Kawasan FROM kawasan`
   let sql2 = `SELECT PK_Lokasi, Nama_Lokasi FROM lokasi`
@@ -108,7 +114,10 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 
   connection.query(sql, function(err, rowsOfAduan) {
 
-    let obj = {rowsOfAduan: rowsOfAduan}
+    let obj = {
+      user: user,
+      rowsOfAduan: rowsOfAduan
+    }
 
     console.log(id)
     console.log(rowsOfAduan)
@@ -120,11 +129,11 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 })
 
 app.get("/aduan/user/semakan-aduan/senarai-aduan/info-aduan", function(req, res) {
-  res.render("info-aduan")
+  res.render("info-aduan", {user: user})
 })
 
-app.get("/aduan/user/tukar-katalaluan", function(req, res) {
-  res.render("tukar-katalaluan")
+app.get("/aduan/:user/tukar-katalaluan", function(req, res) {
+  res.render("tukar-katalaluan", {user: user})
 })
 
 app.get("/aduan/admin/direktori-pengguna", function(req, res) {
@@ -133,7 +142,10 @@ app.get("/aduan/admin/direktori-pengguna", function(req, res) {
 
   connection.query(sql, function(req, rowsOfStaf) {
 
-    let obj = {rowsOfStaf: rowsOfStaf}
+    let obj = {
+      user: user,
+      rowsOfStaf: rowsOfStaf
+    }
 
     res.render("direktori-pengguna", obj)
 
@@ -142,15 +154,15 @@ app.get("/aduan/admin/direktori-pengguna", function(req, res) {
 })
 
 app.get("/aduan/admin/direktori-pengguna/maklumat-staf", function(req, res) {
-  res.render("maklumat-staf")
+  res.render("maklumat-staf", {user: user})
 })
 
 app.get("/aduan/user/tindakan", function(req, res) {
-  res.render("tindakan")
+  res.render("tindakan", {user: user})
 })
 
 app.get("/aduan/user/tindakan/tindakan-lengkap", function(req, res) {
-  res.render("tindakan-lengkap")
+  res.render("tindakan-lengkap", {user: user})
 })
 
 // POST Requests
@@ -165,14 +177,16 @@ app.post("/log-masuk", function(req, res) {
   connection.query(sql, function (error, results, fields) {
 
     var hash = results[0].Kata_laluan
-    id = results[0].ID
 
     bcrypt.compare(password, hash, function(err, result) {
 
       if (err) throw err;
 
       if (result) {
-        console.log(id)
+
+        logged = true
+        id = results[0].ID
+
         res.redirect(`/aduan/${user}/buat-aduan`);
       } else {
         res.redirect("/aduan");
