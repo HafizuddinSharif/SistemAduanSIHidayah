@@ -39,6 +39,7 @@ connection.connect(function(err) {
 // VARIABLES
 
 var user = ""
+var id = 0
 
 
 // GET Requests
@@ -53,6 +54,7 @@ app.get("/aduan/:user_name/buat-aduan", function(req, res) {
   let sql2 = `SELECT PK_Lokasi, Nama_Lokasi FROM lokasi`
   let sql3 = `SELECT PK_Kategori, Nama_Kategori FROM kategori`
   let sql4 = `SELECT PK_Peralatan, Nama_Peralatan FROM senarai_peralatan`
+  let sql5 = `SELECT ID, Nama_Staf FROM direktori_pengguna WHERE ID_Pengguna = '${user}'`
 
   connection.query(sql1 , function(err, rowsOfKawasan) {
 
@@ -62,9 +64,20 @@ app.get("/aduan/:user_name/buat-aduan", function(req, res) {
 
         connection.query(sql4, function(err, rowsOfItem) {
 
-          let obj = {rowsOfKawasan: rowsOfKawasan, rowsOfLokasi: rowsOfLokasi, rowsOfKategori: rowsOfKategori, rowsOfItem: rowsOfItem}
+          connection.query(sql5, function(err, rowsOfIDStaf) {
 
-          res.render("buat-aduan", obj)
+            let obj = {
+              user: user,
+              rowsOfKawasan: rowsOfKawasan,
+              rowsOfLokasi: rowsOfLokasi,
+              rowsOfKategori: rowsOfKategori,
+              rowsOfItem: rowsOfItem,
+              infoStaf: rowsOfIDStaf[0]
+            }
+
+            res.render("buat-aduan", obj)
+
+          })
 
         })
 
@@ -80,8 +93,30 @@ app.get("/aduan/:user_name/buat-aduan", function(req, res) {
 //   res.render("semakan-aduan")
 // })
 
-app.get("/aduan/user/semakan-aduan/senarai-aduan", function(req, res) {
-  res.render("senarai-aduan")
+app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
+
+  let sql = `SELECT aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi
+            FROM aduan
+            JOIN direktori_pengguna
+            	ON aduan.FK_Pengadu = direktori_pengguna.ID
+            JOIN kawasan
+            	ON aduan.FK_Kawasan = kawasan.PK_Kawasan
+            JOIN info_lokasi
+            	ON aduan.FK_Lokasi = info_lokasi.PK_Lokasi
+            WHERE direktori_pengguna.ID = ${id}
+            ORDER BY aduan.ID`
+
+  connection.query(sql, function(err, rowsOfAduan) {
+
+    let obj = {rowsOfAduan: rowsOfAduan}
+
+    console.log(id)
+    console.log(rowsOfAduan)
+
+    res.render("senarai-aduan", obj)
+
+  })
+
 })
 
 app.get("/aduan/user/semakan-aduan/senarai-aduan/info-aduan", function(req, res) {
@@ -125,17 +160,19 @@ app.post("/log-masuk", function(req, res) {
   user = req.body.id
   let password = req.body.pass
 
-  let sql = `SELECT ID_Pengguna, Kata_laluan FROM direktori_pengguna WHERE ID_Pengguna = '${user}'`
+  let sql = `SELECT ID, ID_Pengguna, Kata_laluan FROM direktori_pengguna WHERE ID_Pengguna = '${user}'`
 
   connection.query(sql, function (error, results, fields) {
 
-    var hash = results[0].Kata_laluan;
+    var hash = results[0].Kata_laluan
+    id = results[0].ID
 
     bcrypt.compare(password, hash, function(err, result) {
 
       if (err) throw err;
 
       if (result) {
+        console.log(id)
         res.redirect(`/aduan/${user}/buat-aduan`);
       } else {
         res.redirect("/aduan");
