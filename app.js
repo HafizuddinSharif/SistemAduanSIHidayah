@@ -41,6 +41,7 @@ connection.connect(function(err) {
 var user = ""
 var id = 0
 var logged = false
+var admin = false
 
 
 // GET Requests
@@ -158,7 +159,28 @@ app.get("/aduan/admin/direktori-pengguna/maklumat-staf", function(req, res) {
 })
 
 app.get("/aduan/user/tindakan", function(req, res) {
-  res.render("tindakan", {user: user})
+
+  let sql = `SELECT aduan.ID, aduan.No_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, aduan.Catatan_Kerosakan
+            FROM aduan
+            JOIN direktori_pengguna
+            	ON aduan.FK_Pengadu = direktori_pengguna.ID
+            JOIN kawasan
+            	ON aduan.FK_Kawasan = kawasan.PK_Kawasan
+            JOIN info_lokasi
+            	ON aduan.FK_Lokasi = info_lokasi.PK_Lokasi
+            ORDER BY aduan.ID`
+
+  connection.query(sql, function(err, rowsOfAduan) {
+
+    let obj = {
+      user: user,
+      rowsOfAduan: rowsOfAduan
+    }
+
+    res.render("tindakan", obj)
+
+  })
+
 })
 
 app.get("/aduan/user/tindakan/tindakan-lengkap", function(req, res) {

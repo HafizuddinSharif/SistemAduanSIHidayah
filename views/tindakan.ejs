@@ -35,15 +35,17 @@
             </tr>
           </thead>
           <tbody class="clickable-row">
+            <% rowsOfAduan.forEach( function(row) { %>
             <tr>
-              <td>1</td>
-              <td>1234</td>
-              <td>Luar</td>
-              <td>Rumah</td>
-              <td>Kebersihan</td>
-              <td>Panas</td>
-              <td>Malaysia panas sangat</td>
+              <td><%= row.ID %></td>
+              <td><%= row.No_Aduan %></td>
+              <td><%= row.Nama_Kawasan %></td>
+              <td><%= row.Nama_Lokasi %></td>
+              <td>Belum set</td>
+              <td>Belum set</td>
+              <td><%= row.Catatan_Kerosakan %></td>
             </tr>
+            <% }) %>
           </tbody>
         </table>
 
