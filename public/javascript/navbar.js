@@ -28,12 +28,14 @@ $(".clickable-row tr").on("click", function(event) {
 
 })
 
-// Handling password confirmation
+// Handling password confirmation in /daftar
 
 var password = document.getElementById("katalaluan")
 var confirm_password = document.getElementById("pasti_katalaluan");
 
 function validatePassword(){
+  console.log(password.value)
+  console.log(confirm_password.value)
   if(password.value != confirm_password.value) {
     confirm_password.setCustomValidity("Passwords Don't Match");
   } else {

@@ -25,11 +25,11 @@
           <tbody>
             <tr>
               <td><label for="id_pengguna">ID Pengguna</label></td>
-              <td><input type="text" name="id_pengguna" value=""></td>
+              <td><input type="text" name="id_pengguna" value="" required></td>
             </tr>
             <tr>
               <td><label for="katalaluan">Katalaluan</label></td>
-              <td><input type="password" name="katalaluan" value=""></td>
+              <td><input type="password" name="katalaluan" value="" required></td>
             </tr>
           </tbody>
         </table>
@@ -42,7 +42,11 @@
           <tbody>
             <tr>
               <td><label for="katalaluan_baru">Katalaluan baru</label></td>
-              <td><input type="password" name="katalaluan_baru" value=""></td>
+              <td><input type="password" name="katalaluan_baru" id="katalaluan_baru" value="" required></td>
+            </tr>
+            <tr>
+              <td><label for="pasti_katalaluan_baru">Pasti Katalaluan baru</label></td>
+              <td><input type="password" name="pasti_katalaluan_baru" id="pasti_katalaluan_baru" value="" required></td>
             </tr>
           </tbody>
         </table>
@@ -53,7 +57,7 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/public/javascript/navbar.js"></script>
+    <script src="/public/javascript/pasti-katalaluan.js"></script>
 
   </body>
 </html>
