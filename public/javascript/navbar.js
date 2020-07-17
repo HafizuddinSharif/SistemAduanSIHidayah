@@ -27,3 +27,19 @@ $(".clickable-row tr").on("click", function(event) {
   $(this).addClass("clicked-row")
 
 })
+
+// Handling password confirmation
+
+var password = document.getElementById("katalaluan")
+var confirm_password = document.getElementById("pasti_katalaluan");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
