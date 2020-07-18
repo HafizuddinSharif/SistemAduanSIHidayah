@@ -102,7 +102,7 @@ app.get("/aduan/:user/buat-aduan", function(req, res) {
 
 app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 
-  let sql = `SELECT aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi
+  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, aduan.Catatan_Kerosakan
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
@@ -110,6 +110,8 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
             	ON aduan.FK_Kawasan = kawasan.PK_Kawasan
             JOIN info_lokasi
             	ON aduan.FK_Lokasi = info_lokasi.PK_Lokasi
+            JOIN bidang_tugas
+            	ON aduan.FK_Bidang_Tugas = bidang_tugas.No_Bidang
             WHERE direktori_pengguna.ID = ${id}
             ORDER BY aduan.ID`
 
@@ -160,7 +162,7 @@ app.get("/aduan/admin/direktori-pengguna/maklumat-staf", function(req, res) {
 
 app.get("/aduan/user/tindakan", function(req, res) {
 
-  let sql = `SELECT aduan.ID, aduan.No_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, aduan.Catatan_Kerosakan
+  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
@@ -168,6 +170,10 @@ app.get("/aduan/user/tindakan", function(req, res) {
             	ON aduan.FK_Kawasan = kawasan.PK_Kawasan
             JOIN info_lokasi
             	ON aduan.FK_Lokasi = info_lokasi.PK_Lokasi
+            JOIN kategori
+            	ON aduan.FK_Kategori = kategori.PK_Kategori
+            JOIN bidang_tugas
+            	ON aduan.FK_Bidang_Tugas = bidang_tugas.No_Bidang
             ORDER BY aduan.ID`
 
   connection.query(sql, function(err, rowsOfAduan) {
