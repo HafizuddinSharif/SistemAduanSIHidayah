@@ -41,7 +41,8 @@ connection.connect(function(err) {
 var user = ""
 var id = 0
 var logged = false
-var admin = false
+var pentadbir = false
+var juruteknik = false
 
 
 // GET Requests
@@ -51,6 +52,8 @@ app.get("/aduan", function(req, res) {
   logged = false
   user = ""
   id = 0
+  pentadbir = false
+  juruteknik = false
 
   res.render("log-masuk")
 })
@@ -74,6 +77,9 @@ app.get("/aduan/:user/buat-aduan", function(req, res) {
           connection.query(sql5, function(err, rowsOfIDStaf) {
 
             let obj = {
+              pentadbir: pentadbir,
+              logged: logged,
+              juruteknik: juruteknik,
               user: user,
               rowsOfKawasan: rowsOfKawasan,
               rowsOfLokasi: rowsOfLokasi,
@@ -118,6 +124,9 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
   connection.query(sql, function(err, rowsOfAduan) {
 
     let obj = {
+      pentadbir: pentadbir,
+      logged: logged,
+      juruteknik: juruteknik,
       user: user,
       rowsOfAduan: rowsOfAduan
     }
@@ -132,20 +141,41 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 })
 
 app.get("/aduan/user/semakan-aduan/senarai-aduan/info-aduan", function(req, res) {
-  res.render("info-aduan", {user: user})
+
+  let obj = {
+    pentadbir: pentadbir,
+    logged: logged,
+    juruteknik: juruteknik,
+    user: user,
+  }
+
+  res.render("info-aduan", obj)
+
 })
 
 app.get("/aduan/:user/tukar-katalaluan", function(req, res) {
-  res.render("tukar-katalaluan", {user: user})
+
+  let obj = {
+    pentadbir: pentadbir,
+    logged: logged,
+    juruteknik: juruteknik,
+    user: user,
+  }
+
+  res.render("tukar-katalaluan", obj)
+
 })
 
-app.get("/aduan/admin/direktori-pengguna", function(req, res) {
+app.get("/aduan/:user/direktori-pengguna", function(req, res) {
 
-  let sql = `SELECT ID, Nama_Staf, Jawatan FROM direktori_pengguna`
+  let sql = `SELECT ID, Nama_Staf, Jenis_ID FROM direktori_pengguna`
 
   connection.query(sql, function(req, rowsOfStaf) {
 
     let obj = {
+      pentadbir: pentadbir,
+      logged: logged,
+      juruteknik: juruteknik,
       user: user,
       rowsOfStaf: rowsOfStaf
     }
@@ -156,11 +186,27 @@ app.get("/aduan/admin/direktori-pengguna", function(req, res) {
 
 })
 
-app.get("/aduan/admin/direktori-pengguna/maklumat-staf", function(req, res) {
-  res.render("maklumat-staf", {user: user})
+app.get("/aduan/:user/direktori-pengguna/maklumat-staf", function(req, res) {
+
+  let sql = `SELECT PK_Jenis_ID, Nama_Jenis_ID FROM jenis_id`
+
+  connection.query(sql, function(err, rowsOfJenisID) {
+
+    let obj = {
+      pentadbir: pentadbir,
+      logged: logged,
+      juruteknik: juruteknik,
+      user: user,
+      rowsOfJenisID: rowsOfJenisID
+    }
+
+    res.render("maklumat-staf", obj)
+
+  })
+
 })
 
-app.get("/aduan/user/tindakan", function(req, res) {
+app.get("/aduan/:user/tindakan", function(req, res) {
 
   let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan
             FROM aduan
@@ -179,6 +225,9 @@ app.get("/aduan/user/tindakan", function(req, res) {
   connection.query(sql, function(err, rowsOfAduan) {
 
     let obj = {
+      pentadbir: pentadbir,
+      logged: logged,
+      juruteknik: juruteknik,
       user: user,
       rowsOfAduan: rowsOfAduan
     }
@@ -190,7 +239,15 @@ app.get("/aduan/user/tindakan", function(req, res) {
 })
 
 app.get("/aduan/user/tindakan/tindakan-lengkap", function(req, res) {
-  res.render("tindakan-lengkap", {user: user})
+
+  let obj = {
+    pentadbir: pentadbir,
+    logged: logged,
+    juruteknik: juruteknik,
+    user: user,
+  }
+
+  res.render("tindakan-lengkap", obj)
 })
 
 // POST Requests
@@ -200,7 +257,7 @@ app.post("/log-masuk", function(req, res) {
   user = req.body.id
   let password = req.body.pass
 
-  let sql = `SELECT ID, ID_Pengguna, Kata_laluan FROM direktori_pengguna WHERE ID_Pengguna = '${user}'`
+  let sql = `SELECT ID, ID_Pengguna, Kata_laluan, Jenis_ID FROM direktori_pengguna WHERE ID_Pengguna = '${user}'`
 
   connection.query(sql, function (error, results, fields) {
 
@@ -215,9 +272,18 @@ app.post("/log-masuk", function(req, res) {
         logged = true
         id = results[0].ID
 
+        if (results[0].Jenis_ID == 'Pentadbir') {
+          pentadbir = true
+        } else if (results[0].Jenis_ID == 'Baikpulih') {
+          juruteknik = true
+        }
+
         res.redirect(`/aduan/${user}/buat-aduan`);
+
       } else {
+
         res.redirect("/aduan");
+
       }
 
     });
@@ -258,7 +324,7 @@ app.post("/daftar", function(req, res) {
       if (err) {
         console.log(error)
       } else {
-        res.redirect("/aduan/admin/direktori-pengguna")
+        res.redirect("/aduan/pentadbir/direktori-pengguna")
       }
     })
   });

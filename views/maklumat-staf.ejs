@@ -43,8 +43,9 @@
               <td><label for="jenis_id">Jenis ID</label></td>
               <td><select class="" name="jenis_id" required>
                 <option value="0">Sila Pilih</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
+                <% rowsOfJenisID.forEach( function(row) { %>
+                <option value="<%= row.Nama_Jenis_ID %>"><%= row.Nama_Jenis_ID %></option>
+                <% }) %>
               </select></td>
             </tr>
 
