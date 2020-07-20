@@ -199,7 +199,8 @@ app.get("/aduan/:user/direktori-pengguna/:id_staf", function(req, res) {
         logged: logged,
         juruteknik: juruteknik,
         user: user,
-        rowsOfJenisID: rowsOfJenisID
+        rowsOfJenisID: rowsOfJenisID,
+        selected: selected
       }
 
       res.render("maklumat-staf", obj)
@@ -226,7 +227,7 @@ app.get("/aduan/:user/direktori-pengguna/:id_staf", function(req, res) {
           rowsOfJenisID: rowsOfJenisID
         }
 
-        res.render("maklumat-staf", obj)
+        res.render("maklumat-staf2", obj)
 
       })
     })
@@ -439,6 +440,12 @@ app.post("/maklumat-staf", function(req, res) {
     selected = true
 
     res.redirect(`/aduan/${user}/direktori-pengguna/${req.body.ubah}`)
+
+  }
+
+  else if (req.body.tambah) {
+
+    res.redirect(`/aduan/${user}/direktori-pengguna/tambah`)
 
   }
 
