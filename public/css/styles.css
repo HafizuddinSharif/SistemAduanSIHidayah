@@ -194,6 +194,10 @@ thead tr th:last-child {
   margin: 10px 0;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 /* JADUAL SENARAI ADUAN */
 
 .container3 {

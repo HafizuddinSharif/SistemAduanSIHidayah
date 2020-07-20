@@ -19,35 +19,40 @@
 
       <div class="inner-container">
 
-        <h3>Senarai ID Pengguna</h3>
+        <form class="" action="/maklumat-staf" method="post">
 
-        <table class="direktori center-table">
-          <thead>
-            <tr>
-              <th>Bil.</th>
-              <th>Jenis ID</th>
-              <th>Pengguna</th>
-            </tr>
-          </thead>
-          <tbody class="clickable-row">
-            <% rowsOfStaf.forEach(function(row){ %>
-            <tr>
-              <td><%= row.ID %></td>
-              <td><%= row.Jenis_ID %></td>
-              <td><%= row.Nama_Staf %> </td>
-            </tr>
-            <% }) %>
-          </tbody>
-        </table>
+          <h3>Senarai ID Pengguna</h3>
 
-        <div class="group-buttons">
+          <table class="direktori center-table">
+            <thead>
+              <tr>
+                <th>Bil.</th>
+                <th>Jenis ID</th>
+                <th>Pengguna</th>
+              </tr>
+            </thead>
+            <tbody class="clickable-row">
+              <% rowsOfStaf.forEach(function(row){ %>
+              <tr>
+                <td><%= row.ID %></td>
+                <td><%= row.Jenis_ID %></td>
+                <td><%= row.Nama_Staf %> </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
 
-          <a href="/aduan/admin/direktori-pengguna/maklumat-staf">
-            <button type="button" name="tambah">Tambah</button>
-          </a>
-          <button type="button" name="hapus">Hapus</button>
+          <div class="group-buttons">
 
-        </div>
+            <a href="/aduan/admin/direktori-pengguna/tambah">
+              <button type="button" name="tambah">Tambah</button>
+            </a>
+            <button class="hidden" type="submit" name="hapus" id="hapus" value="">Hapus</button>
+            <button class="hidden" type="submit" name="ubah" id="ubah" value="">Ubah</button>
+
+          </div>
+
+        </form>
 
       </div>
 
@@ -56,7 +61,7 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/public/javascript/navbar.js"></script>
+    <script src="/public/javascript/direktori-pengguna.js"></script>
 
   </body>
 </html>

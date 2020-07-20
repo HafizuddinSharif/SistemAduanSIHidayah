@@ -43,7 +43,7 @@ var id = 0
 var logged = false
 var pentadbir = false
 var juruteknik = false
-
+var selected = false
 
 // GET Requests
 
@@ -186,23 +186,53 @@ app.get("/aduan/:user/direktori-pengguna", function(req, res) {
 
 })
 
-app.get("/aduan/:user/direktori-pengguna/maklumat-staf", function(req, res) {
+app.get("/aduan/:user/direktori-pengguna/:id_staf", function(req, res) {
 
-  let sql = `SELECT PK_Jenis_ID, Nama_Jenis_ID FROM jenis_id`
+  if (!selected) {
 
-  connection.query(sql, function(err, rowsOfJenisID) {
+    let sql = `SELECT PK_Jenis_ID, Nama_Jenis_ID FROM jenis_id`
 
-    let obj = {
-      pentadbir: pentadbir,
-      logged: logged,
-      juruteknik: juruteknik,
-      user: user,
-      rowsOfJenisID: rowsOfJenisID
-    }
+    connection.query(sql, function(err, rowsOfJenisID) {
 
-    res.render("maklumat-staf", obj)
+      let obj = {
+        pentadbir: pentadbir,
+        logged: logged,
+        juruteknik: juruteknik,
+        user: user,
+        rowsOfJenisID: rowsOfJenisID
+      }
 
-  })
+      res.render("maklumat-staf", obj)
+
+    })
+
+  } else {
+
+    let sql1 = `SELECT PK_Jenis_ID, Nama_Jenis_ID FROM jenis_id`
+
+    connection.query(sql1, function(err, rowsOfJenisID) {
+
+      let sql2 = `SELECT * FROM direktori_pengguna WHERE ID = ${req.params.id_staf}`
+
+      connection.query(sql2, function(err, rowsOfPengguna) {
+
+        let obj = {
+          pentadbir: pentadbir,
+          logged: logged,
+          juruteknik: juruteknik,
+          user: user,
+          selected: selected,
+          pengguna: rowsOfPengguna[0],
+          rowsOfJenisID: rowsOfJenisID
+        }
+
+        res.render("maklumat-staf", obj)
+
+      })
+    })
+  }
+
+
 
 })
 
@@ -400,6 +430,28 @@ app.post("/tukar-katalaluan", function(req, res) {
 
   })
 
+})
+
+app.post("/maklumat-staf", function(req, res) {
+
+  if (req.body.ubah) {
+
+    selected = true
+
+    res.redirect(`/aduan/${user}/direktori-pengguna/${req.body.ubah}`)
+
+  }
+
+  else if (req.body.hapus) {
+
+    let sql = `DELETE FROM direktori_pengguna WHERE ID = ${req.body.hapus}`
+
+    connection.query(sql, function(err, result) {
+
+      res.redirect(`/aduan/${user}/direktori-pengguna`)
+
+    })
+  }
 
 })
 

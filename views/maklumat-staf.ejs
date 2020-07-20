@@ -15,6 +15,7 @@
 
       <h1 class="header">Maklumat Staf</h1>
 
+      <% if (!selected) { %>
       <form class="" action="/daftar" method="post">
 
         <!-- INFO -->
@@ -146,10 +147,152 @@
 
       </form>
 
+      <% } else { %>
+
+      <form class="" action="/daftar" method="post">
+
+        <!-- INFO -->
+
+        <h3>Info</h3>
+
+        <table class="center-table">
+          <tbody>
+
+            <tr>
+              <td><label for="id_pengguna">ID Pengguna</label></td>
+              <td><input type="text" name="id_pengguna" value="<%= pengguna.ID_Pengguna %>" required></td>
+            </tr>
+
+            <tr>
+              <td><label for="jenis_id">Jenis ID</label></td>
+              <td><select class="" name="jenis_id" id="jenis_id" required>
+                <option value="0">Sila Pilih</option>
+                <% rowsOfJenisID.forEach( function(row) { %>
+                <%   if (pengguna.Jenis_ID === row.Nama_Jenis_ID) { %>
+                <option selected value="<%= row.Nama_Jenis_ID %>"><%= row.Nama_Jenis_ID %></option>
+                <%   } else { %>
+                <option value="<%= row.Nama_Jenis_ID %>"><%= row.Nama_Jenis_ID %></option>
+                <% }}) %>
+              </select></td>
+            </tr>
+
+            <tr>
+              <td><label for="nama_staf">Nama Staf</label></td>
+              <td><input type="text" name="nama_staf" value="<%= pengguna.Nama_Staf %>" required></td>
+            </tr>
+
+            <tr>
+              <td><label for="emel">Emel</label></td>
+              <td><input type="email" name="emel" value="<%= pengguna.Emel %>" required></td>
+            </tr>
+
+            <tr>
+              <td><label for="no_telefon">No Telefon</label></td>
+              <td><input type="text" name="no_telefon" value="<%= pengguna.No_Telefon %>" required></td>
+            </tr>
+
+            <tr>
+              <td><label for="jawatan">Jawatan</label></td>
+              <td class= "radio">
+
+                <label for="pengetua" class="container2">Pengetua
+                  <input class="radio1" type="radio" name="jawatan" value="Pengetua" id="pengetua">
+                  <span class="checkmark"></span>
+                </label>
+
+                <label for="guru-besar" class="container2">Guru Besar
+                  <input class="radio1" type="radio" name="jawatan" value="Guru Besar" id="guru-besar">
+                  <span class="checkmark"></span>
+                </label>
+
+                <label for="pentadbiran" class="container2">Pentadbiran
+                  <input class="radio1" type="radio" name="jawatan" value="Pentadbiran" id="pentadbiran">
+                  <span class="checkmark"></span>
+                </label>
+
+                <label for="guru" class="container2">Guru
+                  <input class="radio1" type="radio" name="jawatan" value="Guru" id="guru">
+                  <span class="checkmark"></span>
+                </label>
+
+                <label for="kba" class="container2">KBA
+                  <input class="radio1" type="radio" name="jawatan" value="KBA" id="kba">
+                  <span class="checkmark"></span>
+                </label>
+
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <!-- BIDANG TUGAS STAF -->
+
+        <h3>Bidang Tugas Staf</h3>
+
+        <table class="center-table">
+          <tbody>
+
+            <tr>
+              <td class="radio">
+                <label for="senggara" class="container2">Senggara
+                  <input class="radio2" type="radio" name="bidang_tugas" value="Senggara" id="senggara">
+                  <span class="checkmark"></span>
+                </label>
+              </td>
+              <td class="radio">
+                <label for="perkebunan" class="container2">Perkebunan
+                  <input class="radio2" type="radio" name="bidang_tugas" value="Perkebunan" id="perkebunan">
+                  <span class="checkmark"></span>
+                </label>
+              </td>
+
+            </tr>
+
+            <tr>
+              <td class="radio">
+                <label for="kebersihan" class="container2">Kebersihan
+                  <input class="radio2" type="radio" name="bidang_tugas" value="Kebersihan" id="kebersihan">
+                  <span class="checkmark"></span>
+                </label>
+              </td>
+              <td class="radio">
+                <label for="it" class="container2">IT
+                  <input class="radio2" type="radio" name="bidang_tugas" value="IT" id="it">
+                  <span class="checkmark"></span>
+                </label>
+              </td>
+
+            </tr>
+
+          </tbody>
+        </table>
+
+        <button type="submit" name="simpan">Simpan</button>
+        <button type="submit" name="hapus">Hapus</button>
+
+      </form>
+
+      <% } %>
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/public/javascript/navbar.js"></script>
+    <script src="/public/javascript/maklumat-staf.js"></script>
+    <script type="text/javascript">
+    var allElems = document.getElementsByClassName('radio1');
+    for (i = 0; i < allElems.length; i++) {
+        if (allElems[i].type == 'radio' && allElems[i].value == `<%= pengguna.Jawatan %>`) {
+            allElems[i].checked = true;
+        }
+    }
+    var allElems2 = document.getElementsByClassName('radio2');
+    for (i = 0; i < allElems.length; i++) {
+        if (allElems2[i].type == 'radio' && allElems2[i].value == `<%= pengguna.Bidang_Tugas %>`) {
+            allElems2[i].checked = true;
+        }
+    }
+    </script>
 
   </body>
 </html>
