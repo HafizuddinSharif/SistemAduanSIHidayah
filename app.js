@@ -140,16 +140,39 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 
 })
 
-app.get("/aduan/:user/semakan-aduan/senarai-aduan/info-aduan", function(req, res) {
+app.get("/aduan/:user/semakan-aduan/senarai-aduan/:no_aduan", function(req, res) {
 
-  let obj = {
-    pentadbir: pentadbir,
-    logged: logged,
-    juruteknik: juruteknik,
-    user: user,
-  }
+  let sql = `SELECT direktori_pengguna.ID_Pengguna, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, rujukan_item.Nama_Item, dp.Nama_Staf, Tarikh_Terima_Tugasan, Komen_Teknikal, Tarikh_Selesai
+            FROM aduan
+            JOIN direktori_pengguna
+            	ON aduan.FK_Pengadu = direktori_pengguna.ID
+            JOIN kawasan
+            	ON aduan.FK_Kawasan = kawasan.PK_Kawasan
+            JOIN info_lokasi
+            	ON aduan.FK_Lokasi = info_lokasi.PK_Lokasi
+            JOIN kategori
+            	ON aduan.FK_Kategori = kategori.PK_Kategori
+            JOIN bidang_tugas
+            	ON aduan.FK_Bidang_Tugas = bidang_tugas.No_Bidang
+            JOIN rujukan_item
+            	ON aduan.FK_Rujukan_Item = rujukan_item.ID
+            JOIN direktori_pengguna dp
+            	ON aduan.FK_Penerima_Tugasan = dp.ID
+            WHERE direktori_pengguna.ID_Pengguna = '${user}' AND aduan.No_Aduan = ${req.params.no_aduan}`
 
-  res.render("info-aduan", obj)
+  connection.query(sql, function(err, rowsOfAduan) {
+
+    let obj = {
+      pentadbir: pentadbir,
+      logged: logged,
+      juruteknik: juruteknik,
+      user: user,
+      aduan: rowsOfAduan[0]
+    }
+
+    res.render("info-aduan", obj)
+
+  })
 
 })
 
@@ -475,6 +498,12 @@ app.post("/maklumat-staf", function(req, res) {
 
     })
   }
+
+})
+
+app.post('/info-aduan', function(req, res) {
+
+  res.redirect(`/aduan/${user}/semakan-aduan/senarai-aduan/${req.body.semak}`)
 
 })
 

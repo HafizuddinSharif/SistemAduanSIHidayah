@@ -13,35 +13,41 @@
 
     <div class="container">
 
-      <h1 class="header">Senarai Aduan</h1>
+      <form class="" action="/info-aduan" method="post">
 
-      <table class="senarai-no-aduan">
-        <thead>
-          <tr>
-            <th>No. Aduan</th>
-            <th>Tarikh</th>
-            <th class="table-jenis-aduan">Jenis Aduan</th>
-            <th>Kawasan</th>
-            <th>Lokasi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% rowsOfAduan.forEach( function(row) { %>
-          <tr>
-            <td><%= row.No_Aduan %></td>
-            <td><%= row.Tarikh_Aduan %></td>
-            <td><%= row.Nama_Bidang %></td>
-            <td><%= row.Nama_Kawasan %></td>
-            <td><%= row.Nama_Lokasi %></td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
+        <h1 class="header">Senarai Aduan</h1>
+
+        <table class="">
+          <thead>
+            <tr>
+              <th>No. Aduan</th>
+              <th>Tarikh</th>
+              <th>Jenis Aduan</th>
+              <th>Kawasan</th>
+              <th>Lokasi</th>
+            </tr>
+          </thead>
+          <tbody class="clickable-row">
+            <% rowsOfAduan.forEach( function(row) { %>
+            <tr>
+              <td><%= row.No_Aduan %></td>
+              <td><%= row.Tarikh_Aduan %></td>
+              <td><%= row.Nama_Bidang %></td>
+              <td><%= row.Nama_Kawasan %></td>
+              <td><%= row.Nama_Lokasi %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+
+        <button class="hidden" type="submit" name="semak" id="semak">Semak</button>
+
+      </form>
 
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/public/javascript/navbar.js"></script>
+    <script src="/public/javascript/senarai-aduan.js"></script>
 
   </body>
 </html>

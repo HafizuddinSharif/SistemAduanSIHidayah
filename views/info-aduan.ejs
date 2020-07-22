@@ -21,27 +21,27 @@
           <tbody>
             <tr>
               <td>Jenis Aduan</td>
-              <td>Kebersihan</td>
+              <td><%= aduan.Nama_Bidang %></td>
             </tr>
             <tr>
               <td>Kawasan</td>
-              <td>Bangunan Iman</td>
+              <td><%= aduan.Nama_Kawasan %></td>
             </tr>
             <tr>
               <td>Lokasi</td>
-              <td>Aras 1, Stor</td>
+              <td><%= aduan.Nama_Lokasi %></td>
             </tr>
             <tr>
               <td>Kategori</td>
-              <td>Tandas</td>
+              <td><%= aduan.Nama_Kategori %></td>
             </tr>
             <tr>
               <td>Item</td>
-              <td>Flush</td>
+              <td><%= aduan.Nama_Item %></td>
             </tr>
             <tr>
               <td>Perihal</td>
-              <td>Tidak berfungsi dengan baik tetapi masih boleh digunakan kalau diperlukan tembak tembak pun tak kene apa nak jadi la oi</td>
+              <td><%= aduan.Catatan_Kerosakan %></td>
             </tr>
             <tr>
               <td>Gambar</td>
@@ -59,19 +59,19 @@
         <tbody>
           <tr>
             <td>Nama Petugas</td>
-            <td>Hafizuddin</td>
+            <td><%= aduan.Nama_Staf %></td>
           </tr>
           <tr>
             <td>Tarikh Terima</td>
-            <td>1 Julai 2020</td>
+            <td><%= aduan.Tarikh_Terima_Tugasan %></td>
           </tr>
           <tr>
             <td>Ulasan</td>
-            <td>N/A</td>
+            <td><%= aduan.Komen_Teknikal %></td>
           </tr>
           <tr>
             <td>Tarikh Siap</td>
-            <td>N/A</td>
+            <td><%= aduan.Tarikh_Selesai %></td>
           </tr>
         </tbody>
 

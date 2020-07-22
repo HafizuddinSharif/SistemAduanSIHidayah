@@ -237,6 +237,7 @@ tr td:first-child {
 
 .borderless {
   width: 80%;
+  padding-left: 10%;
 }
 
 .table-jenis-aduan {
