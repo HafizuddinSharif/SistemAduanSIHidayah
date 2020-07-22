@@ -140,7 +140,7 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 
 })
 
-app.get("/aduan/user/semakan-aduan/senarai-aduan/info-aduan", function(req, res) {
+app.get("/aduan/:user/semakan-aduan/senarai-aduan/info-aduan", function(req, res) {
 
   let obj = {
     pentadbir: pentadbir,
@@ -327,7 +327,7 @@ app.post("/daftar", function(req, res) {
 
   bcrypt.hash(req.body.katalaluan, saltRounds, function(err, hash) {
 
-    var user = req.body.id_pengguna;
+    var username = req.body.id_pengguna;
     var password = hash;
     var nama_staf = req.body.nama_staf;
     var no_telefon = req.body.no_telefon;
@@ -340,22 +340,38 @@ app.post("/daftar", function(req, res) {
     var date = "" + tarikh_daftar.getFullYear() + "-" + tarikh_daftar.getMonth() + "-" + tarikh_daftar.getDate()
 
 
-  var sql = "INSERT INTO direktori_pengguna (ID_Pengguna, Kata_Laluan, Nama_Staf, No_Telefon, Jawatan, Emel, Bidang_Tugas, Created_Date, Jenis_ID) VALUES ('" +
-    user + "', '" +
-    password + "', '" +
-    nama_staf + "', '" +
-    no_telefon + "', '" +
-    jawatan + "', '" +
-    emel + "', '" +
-    bidang_tugas + "', '" +
-    date + "', '" +
-    jenis_id + "')"
+    var sql = "INSERT INTO direktori_pengguna (ID_Pengguna, Kata_Laluan, Nama_Staf, No_Telefon, Jawatan, Emel, Bidang_Tugas, Created_Date, Jenis_ID) VALUES ('" +
+      username + "', '" +
+      password + "', '" +
+      nama_staf + "', '" +
+      no_telefon + "', '" +
+      jawatan + "', '" +
+      emel + "', '" +
+      bidang_tugas + "', '" +
+      date + "', '" +
+      jenis_id + "')"
+
+    if (selected) {
+
+      sql = `UPDATE direktori_pengguna
+      SET ID_Pengguna = '${username}',
+      Nama_Staf = '${nama_staf}',
+      No_Telefon = '${no_telefon}',
+      Jawatan = '${jawatan}',
+      Emel = '${emel}',
+      Bidang_Tugas = '${bidang_tugas}',
+      Created_Date = '${date}',
+      Jenis_ID = '${jenis_id}'
+      WHERE ID_Pengguna = '${username}'`
+
+    }
 
     connection.query(sql, function(error, results) {
-      if (err) {
+      if (error) {
         console.log(error)
+        console.log('yeey')
       } else {
-        res.redirect("/aduan/pentadbir/direktori-pengguna")
+        res.redirect(`/aduan/${user}/direktori-pengguna`)
       }
     })
   });
