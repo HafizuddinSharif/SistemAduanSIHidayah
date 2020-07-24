@@ -13,7 +13,7 @@
 
     <div class="container">
 
-      <form class="" action="/" method="post">
+      <form class="" action="/terima-aduan" method="post">
 
         <!-- INFO ADUAN -->
 
@@ -23,27 +23,27 @@
             <tbody>
               <tr>
                 <td>Jenis Aduan</td>
-                <td>Kebersihan</td>
+                <td><%= aduan.Nama_Bidang %></td>
               </tr>
               <tr>
                 <td>Kawasan</td>
-                <td>Bangunan Iman</td>
+                <td><%= aduan.Nama_Kawasan %></td>
               </tr>
               <tr>
                 <td>Lokasi</td>
-                <td>Aras 1, Stor</td>
+                <td><%= aduan.Nama_Lokasi %></td>
               </tr>
               <tr>
                 <td>Kategori</td>
-                <td>Tandas</td>
+                <td><%= aduan.Nama_Kategori %></td>
               </tr>
               <tr>
                 <td>Item</td>
-                <td>Flush</td>
+                <td><%= aduan.Nama_Item %></td>
               </tr>
               <tr>
                 <td>Perihal</td>
-                <td>Tidak berfungsi dengan baik tetapi masih boleh digunakan kalau diperlukan tembak tembak pun tak kene apa nak jadi la oi</td>
+                <td><%= aduan.Catatan_Kerosakan %></td>
               </tr>
               <tr>
                 <td>Gambar</td>
@@ -60,22 +60,22 @@
 
           <tbody>
             <tr>
-              <td>No. Rujukan ID</td>
-              <td>12</td>
-            </tr>
-            <tr>
               <td>Nama Penerima</td>
-              <td>Sharif</td>
+              <td><input type="text" name="nama_penerima" value="<%= name %>"></td>
             </tr>
             <tr>
-              <td>Tarikh dan Masa Terima</td>
-              <td>N/A</td>
+              <td>Tarikh Terima</td>
+              <td><input type="date" name="tarikh_terima" value=""></td>
+            </tr>
+            <tr>
+              <td>Ulasan</td>
+              <td><textarea name="ulasan" value=""></textarea></td>
             </tr>
           </tbody>
 
         </table>
 
-        <button type="submit" name="terima-tugasan">Terima Tugasan</button>
+        <button type="submit" name="terima_tugasan">Terima Tugasan</button>
 
       </form>
 
