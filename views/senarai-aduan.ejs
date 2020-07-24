@@ -29,7 +29,13 @@
           </thead>
           <tbody class="clickable-row">
             <% rowsOfAduan.forEach( function(row) { %>
+            <% if (row.Status_Aduan == 1) { %>
+            <tr class="yellow">
+            <% } else if (row.Status_Aduan == 2) { %>
+            <tr class="green">
+            <% } else { %>
             <tr>
+            <% } %>
               <td><%= row.No_Aduan %></td>
               <td><%= row.Tarikh_Aduan %></td>
               <td><%= row.Nama_Bidang %></td>

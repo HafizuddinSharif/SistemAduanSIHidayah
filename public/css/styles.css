@@ -16,6 +16,14 @@ nav a {
   margin-right: 30px;
 }
 
+.yellow {
+  background-color: yellow;
+}
+
+.green {
+  background-color: green;
+}
+
 .group-buttons a {
   text-decoration: none;
 }
