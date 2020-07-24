@@ -321,7 +321,8 @@ app.get("/aduan/:user/tindakan/:no_tindakan", function(req, res) {
       juruteknik: juruteknik,
       user: user,
       aduan: rowsOfAduan[0],
-      name: name
+      name: name,
+      no_tindakan: req.params.no_tindakan
     }
 
     res.render("tindakan-lengkap", obj)
@@ -540,11 +541,23 @@ app.post('/info-aduan', function(req, res) {
 
 app.post('/tindakan-lengkap', function(req, res) {
 
-  res.redirect(`/aduan/:user/tindakan/${req.body.semak}`)
+  res.redirect(`/aduan/${user}/tindakan/${req.body.semak}`)
 
 })
 
-app.post('/terima-aduan')
+app.post('/terima-aduan', function(req, res) {
+
+  let tarikh_terima = req.body.tarikh_terima
+  let ulasan = req.body.ulasan
+
+  let sql = `UPDATE aduan SET FK_Penerima_Tugasan = ${id}, Tarikh_Terima_Tugasan = '${tarikh_terima}', Komen_Teknikal = '${ulasan}', Status_Aduan = 1 WHERE ID = ${req.body.terima_tugasan}`
+
+  connection.query(sql , function(err, results) {
+
+    res.redirect(`/aduan/${user}/tindakan`)
+
+  })
+})
 
 
 app.listen(3000, function() {
