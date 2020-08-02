@@ -28,13 +28,13 @@ $(".clickable-row tr").on("click", function(event) {
   $(this).addClass("clicked-row")
 
   $("#semak").removeClass('hidden')
-  // $("#hapus").removeClass('hidden')
+  $("#hapus").removeClass('hidden')
 
   let new_html = $(this)[0]
 
   let content = new_html.getElementsByTagName('td')[0].innerText
 
   document.getElementById('semak').value = content
-  // document.getElementById('hapus').value = content
+  document.getElementById('hapus').value = content
 
 })
