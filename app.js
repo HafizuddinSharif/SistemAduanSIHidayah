@@ -132,9 +132,6 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
       rowsOfAduan: rowsOfAduan
     }
 
-    console.log(id)
-    console.log(rowsOfAduan)
-
     res.render("senarai-aduan", obj)
 
   })
@@ -143,7 +140,7 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 
 app.get("/aduan/:user/semakan-aduan/senarai-aduan/:no_aduan", function(req, res) {
 
-  let sql = `SELECT direktori_pengguna.ID_Pengguna, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, rujukan_item.Nama_Item, dp.Nama_Staf, Tarikh_Terima_Tugasan, Komen_Teknikal, Tarikh_Selesai
+  let sql = `SELECT direktori_pengguna.ID_Pengguna, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, rujukan_item.Nama_Item, Tarikh_Terima_Tugasan, Komen_Teknikal, Tarikh_Selesai
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
@@ -157,9 +154,7 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan/:no_aduan", function(req, res)
             	ON aduan.FK_Bidang_Tugas = bidang_tugas.No_Bidang
             JOIN rujukan_item
             	ON aduan.FK_Rujukan_Item = rujukan_item.ID
-            JOIN direktori_pengguna dp
-            	ON aduan.FK_Penerima_Tugasan = dp.ID
-            WHERE direktori_pengguna.ID_Pengguna = '${user}' AND aduan.No_Aduan = ${req.params.no_aduan}`
+            WHERE direktori_pengguna.ID_Pengguna = '${user}' AND aduan.No_Aduan = '${req.params.no_aduan}'`
 
   connection.query(sql, function(err, rowsOfAduan) {
 
@@ -170,6 +165,9 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan/:no_aduan", function(req, res)
       user: user,
       aduan: rowsOfAduan[0]
     }
+
+    console.log(user, id)
+    console.log(rowsOfAduan[0])
 
     res.render("info-aduan", obj)
 
@@ -263,7 +261,7 @@ app.get("/aduan/:user/direktori-pengguna/:id_staf", function(req, res) {
 
 app.get("/aduan/:user/tindakan", function(req, res) {
 
-  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan
+  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, aduan.Status_Aduan
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
@@ -392,7 +390,8 @@ app.post("/daftar", function(req, res) {
     var jenis_id = req.body.jenis_id;
 
     var tarikh_daftar = new Date();
-    var date = "" + tarikh_daftar.getFullYear() + "-" + tarikh_daftar.getMonth() + "-" + tarikh_daftar.getDate()
+    // var date = "" + tarikh_daftar.getFullYear() + "-" + tarikh_daftar.getMonth() + "-" + tarikh_daftar.getDate()
+    var date = '2020-01-16'
 
 
     var sql = "INSERT INTO direktori_pengguna (ID_Pengguna, Kata_Laluan, Nama_Staf, No_Telefon, Jawatan, Emel, Bidang_Tugas, Created_Date, Jenis_ID) VALUES ('" +
@@ -424,7 +423,6 @@ app.post("/daftar", function(req, res) {
     connection.query(sql, function(error, results) {
       if (error) {
         console.log(error)
-        console.log('yeey')
       } else {
         res.redirect(`/aduan/${user}/direktori-pengguna`)
       }
@@ -451,8 +449,8 @@ app.post("/buat-aduan", function(req, res) {
 
   // console.log(no_aduan, id_pengguna, nama_pengadu, jenis_aduan, kawasan, lokasi, kategori, item, perihal, tarikh_aduan)
 
-  let columns = `No_Aduan, Tarikh_Aduan, FK_Pengadu, FK_Kawasan, FK_Lokasi, Catatan_Kerosakan, FK_Rujukan_Item`
-  let values = `'${no_aduan}', '${tarikh_aduan}', '${id_pengguna}', '${kawasan}', '${lokasi}', '${perihal}', '${item}'`
+  let columns = `No_Aduan, Tarikh_Aduan, FK_Pengadu, FK_Kawasan, FK_Lokasi, Catatan_Kerosakan, FK_Rujukan_Item, FK_Kategori, FK_Bidang_Tugas`
+  let values = `'${no_aduan}', '${tarikh_aduan}', '${id_pengguna}', '${kawasan}', '${lokasi}', '${perihal}', '${item}', '${kategori}', '${jenis_aduan}'`
   let sql = `INSERT INTO aduan (${columns}) VALUES (${values})`
 
   connection.query(sql, function(err, results) {
@@ -550,13 +548,29 @@ app.post('/terima-aduan', function(req, res) {
   let tarikh_terima = req.body.tarikh_terima
   let ulasan = req.body.ulasan
 
-  let sql = `UPDATE aduan SET FK_Penerima_Tugasan = ${id}, Tarikh_Terima_Tugasan = '${tarikh_terima}', Komen_Teknikal = '${ulasan}', Status_Aduan = 1 WHERE ID = ${req.body.terima_tugasan}`
+  if (req.body.terima_tugasan) {
 
-  connection.query(sql , function(err, results) {
+    let sql = `UPDATE aduan SET FK_Penerima_Tugasan = ${id}, Tarikh_Terima_Tugasan = '${tarikh_terima}', Komen_Teknikal = '${ulasan}', Status_Aduan = 1 WHERE ID = ${req.body.terima_tugasan}`
 
-    res.redirect(`/aduan/${user}/tindakan`)
+    connection.query(sql , function(err, results) {
 
-  })
+      res.redirect(`/aduan/${user}/tindakan`)
+
+    })
+
+  } else if (req.body.selesai_tugasan) {
+
+    let sql = `UPDATE aduan SET Status_Aduan = 2 WHERE ID = ${req.body.selesai_tugasan}`
+
+    connection.query(sql , function(err, results) {
+
+      res.redirect(`/aduan/${user}/tindakan`)
+
+    })
+
+  }
+
+
 })
 
 
