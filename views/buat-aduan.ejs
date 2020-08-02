@@ -17,7 +17,7 @@
 
       <h1 class="header">Buat Aduan</h1>
 
-      <form class="aduan" action="/buat-aduan" method="post">
+      <form name="aduan" class="aduan" action="/buat-aduan" method="post">
 
         <!-- MAKLUMAT PENGADU -->
 
@@ -54,8 +54,8 @@
               <tr>
                 <td><label for="jenis_aduan">Jenis Aduan</label></td>
                 <td>
-                  <select class="" name="jenis_aduan">
-                    <option value="">Sila Pilih</option>
+                  <select class="jenis_aduan "name="jenis_aduan">
+                    <option value="0">Sila Pilih</option>
                     <option value="1">Senggara</option>
                     <option value="2">Kebersihan</option>
                     <option value="3">Perkebunan</option>
@@ -66,7 +66,7 @@
               <tr>
                 <td><label for="kawasan">Kawasan</label></td>
                 <td>
-                  <select class="" name="kawasan">
+                  <select class="kawasan" name="kawasan">
                     <option value="">Sila Pilih</option>
                     <% rowsOfKawasan.forEach( function(row) { %>
                     <option value="<%= row.PK_Kawasan %>"><%= row.Nama_Kawasan %> </option>
@@ -77,7 +77,7 @@
               <tr>
                 <td><label for="lokasi">Lokasi</label></td>
                 <td>
-                  <select class="" name="lokasi">
+                  <select class="lokasi" name="lokasi">
                     <option value="">Sila Pilih</option>
                     <% rowsOfLokasi.forEach( function(row) { %>
                     <option value="<%= row.PK_Lokasi %>"><%= row.Nama_Lokasi %> </option>
@@ -131,7 +131,26 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/public/javascript/navbar.js"></script>
+    <script src="/public/javascript/buat-aduan.js"></script>
+    <script type="text/javascript">
+    $(".kawasan").click( function(event) {
+
+      let current_kawasan = document.aduan.kawasan.value
+      let index = 1
+      let data = <%- JSON.stringify(rowsOfLokasi) %>
+
+      document.aduan.lokasi.options.length = 0
+      document.aduan.lokasi.options[0] = new Option("Sila Pilih", "0", true, false)
+
+      data.forEach( function(row) {
+        if (row.FK_Kawasan == current_kawasan) {
+          document.aduan.lokasi.options[index] = new Option(`${row.Nama_Lokasi}`, `${row.PK_Lokasi}`, false, false)
+          index++
+        }
+      })
+
+    })
+    </script>
 
   </body>
 </html>

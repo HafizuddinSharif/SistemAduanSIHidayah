@@ -62,7 +62,7 @@ app.get("/aduan", function(req, res) {
 app.get("/aduan/:user/buat-aduan", function(req, res) {
 
   let sql1 = `SELECT PK_Kawasan, Nama_Kawasan FROM kawasan`
-  let sql2 = `SELECT PK_Lokasi, Nama_Lokasi FROM lokasi`
+  let sql2 = `SELECT PK_Lokasi, FK_Kawasan, Nama_Lokasi FROM lokasi`
   let sql3 = `SELECT PK_Kategori, Nama_Kategori FROM kategori`
   let sql4 = `SELECT PK_Peralatan, Nama_Peralatan FROM senarai_peralatan`
   let sql5 = `SELECT ID, Nama_Staf FROM direktori_pengguna WHERE ID_Pengguna = '${user}'`
