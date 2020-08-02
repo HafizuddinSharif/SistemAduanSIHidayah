@@ -580,9 +580,11 @@ app.post('/terima-aduan', function(req, res) {
 
   } else if (req.body.selesai_tugasan) {
 
-    let sql = `UPDATE aduan SET Status_Aduan = 2 WHERE ID = ${req.body.selesai_tugasan}`
+    let sql = `UPDATE aduan SET Status_Aduan = 2, Tarikh_Selesai = now() WHERE ID = ${req.body.selesai_tugasan}`
 
     connection.query(sql , function(err, results) {
+
+      console.log(results)
 
       res.redirect(`/aduan/${user}/tindakan`)
 
