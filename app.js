@@ -565,12 +565,12 @@ app.post('/tindakan-lengkap', function(req, res) {
 
 app.post('/terima-aduan', function(req, res) {
 
-  let tarikh_terima = req.body.tarikh_terima
+  // let tarikh_terima = req.body.tarikh_terima
   let ulasan = req.body.ulasan
 
   if (req.body.terima_tugasan) {
 
-    let sql = `UPDATE aduan SET FK_Penerima_Tugasan = ${id}, Tarikh_Terima_Tugasan = '${tarikh_terima}', Komen_Teknikal = '${ulasan}', Status_Aduan = 1 WHERE ID = ${req.body.terima_tugasan}`
+    let sql = `UPDATE aduan SET FK_Penerima_Tugasan = ${id}, Tarikh_Terima_Tugasan = now(), Komen_Teknikal = '${ulasan}', Status_Aduan = 1 WHERE ID = ${req.body.terima_tugasan}`
 
     connection.query(sql , function(err, results) {
 
