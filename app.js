@@ -109,7 +109,7 @@ app.get("/aduan/:user/buat-aduan", function(req, res) {
 
 app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 
-  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, aduan.Catatan_Kerosakan, aduan.Status_Aduan
+  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, aduan.Catatan_Kerosakan, aduan.FK_Tindakan
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
@@ -263,7 +263,7 @@ app.get("/aduan/:user/direktori-pengguna/:id_staf", function(req, res) {
 
 app.get("/aduan/:user/tindakan", function(req, res) {
 
-  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, aduan.Status_Aduan
+  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, aduan.FK_Tindakan
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
@@ -570,7 +570,7 @@ app.post('/terima-aduan', function(req, res) {
 
   if (req.body.terima_tugasan) {
 
-    let sql = `UPDATE aduan SET FK_Penerima_Tugasan = ${id}, Tarikh_Terima_Tugasan = now(), Komen_Teknikal = '${ulasan}', Status_Aduan = 1 WHERE ID = ${req.body.terima_tugasan}`
+    let sql = `UPDATE aduan SET FK_Penerima_Tugasan = ${id}, Tarikh_Terima_Tugasan = now(), Komen_Teknikal = '${ulasan}', FK_Tindakan = 2 WHERE ID = ${req.body.terima_tugasan}`
 
     connection.query(sql , function(err, results) {
 
@@ -580,7 +580,7 @@ app.post('/terima-aduan', function(req, res) {
 
   } else if (req.body.selesai_tugasan) {
 
-    let sql = `UPDATE aduan SET Status_Aduan = 2, Tarikh_Selesai = now() WHERE ID = ${req.body.selesai_tugasan}`
+    let sql = `UPDATE aduan SET FK_Tindakan = 3, Tarikh_Selesai = now() WHERE ID = ${req.body.selesai_tugasan}`
 
     connection.query(sql , function(err, results) {
 
