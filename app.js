@@ -446,18 +446,36 @@ app.post("/buat-aduan", function(req, res) {
   let perihal = req.body.perihal;
   let tarikh_aduan = req.body.tarikh_aduan;
 
-  // let tarikh_aduan = new Date();
-  // let date = "" + tarikh_aduan.getFullYear() + "-" + tarikh_aduan.getMonth() + "-" + tarikh_aduan.getDate()
+  let dt = new Date(tarikh_aduan);
 
-  // console.log(no_aduan, id_pengguna, nama_pengadu, jenis_aduan, kawasan, lokasi, kategori, item, perihal, tarikh_aduan)
+  let tahun = dt.getYear() + 1900;
+  let bulan = dt.getMonth() + 1;
+  let written_bulan = bulan < 10 ? `0${bulan}` : bulan
+  let written_tahun = tahun - 2000
+  var number = '0'
 
-  let columns = `No_Aduan, Tarikh_Aduan, FK_Pengadu, FK_Kawasan, FK_Lokasi, Catatan_Kerosakan, FK_Rujukan_Item, FK_Kategori, FK_Bidang_Tugas`
-  let values = `'${no_aduan}', '${tarikh_aduan}', '${id_pengguna}', '${kawasan}', '${lokasi}', '${perihal}', '${item}', '${kategori}', '${jenis_aduan}'`
-  let sql = `INSERT INTO aduan (${columns}) VALUES (${values})`
+  connection.query(`SELECT No_Aduan FROM aduan WHERE Tahun = '${tahun}' AND Bulan = '${bulan}'`, function(err, results) {
 
-  connection.query(sql, function(err, results) {
+    let what_number = 0
 
-    res.redirect(`/aduan/${user}/buat-aduan`)
+    if (!results) what_number = 1;
+    else what_number = results.length + 1;
+
+    if (what_number < 10) number = '00' + what_number
+    else if (what_number < 100) number = '0' + what_number
+    else number = '' + what_number
+
+    let real_no_aduan =  `AG${written_tahun}${written_bulan}-${number}`
+
+    let columns = `No_Aduan, Tarikh_Aduan, FK_Pengadu, FK_Kawasan, FK_Lokasi, Catatan_Kerosakan, FK_Rujukan_Item, FK_Kategori, FK_Bidang_Tugas, Tahun, Bulan`
+    let values = `'${real_no_aduan}', '${tarikh_aduan}', '${id_pengguna}', '${kawasan}', '${lokasi}', '${perihal}', '${item}', '${kategori}', '${jenis_aduan}', '${tahun}', '${bulan}'`
+    let sql = `INSERT INTO aduan (${columns}) VALUES (${values})`
+
+    connection.query(sql, function(err, results) {
+
+      res.redirect(`/aduan/${user}/buat-aduan`)
+
+    })
 
   })
 
