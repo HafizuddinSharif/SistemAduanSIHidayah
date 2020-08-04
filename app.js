@@ -561,7 +561,7 @@ app.post('/info-aduan', function(req, res) {
 
   else if (req.body.hapus) {
 
-    let sql = `UPDATE SET  FROM aduan WHERE No_Aduan = '${req.body.hapus}' AND FK_Pengadu = ${id}`
+    let sql = `UPDATE aduan SET FK_Tindakan = 4 WHERE No_Aduan = '${req.body.hapus}' AND FK_Pengadu = ${id}`
 
     connection.query(sql, function(err, result) {
 
