@@ -25,6 +25,11 @@ nav a {
   color: white;
 }
 
+.blue {
+  background-color: blue;
+  color: white;
+}
+
 .group-buttons a {
   text-decoration: none;
 }

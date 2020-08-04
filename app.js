@@ -561,7 +561,7 @@ app.post('/info-aduan', function(req, res) {
 
   else if (req.body.hapus) {
 
-    let sql = `DELETE FROM aduan WHERE No_Aduan = ${req.body.hapus} AND FK_Pengadu = ${id}`
+    let sql = `UPDATE SET  FROM aduan WHERE No_Aduan = '${req.body.hapus}' AND FK_Pengadu = ${id}`
 
     connection.query(sql, function(err, result) {
 
@@ -588,7 +588,7 @@ app.post('/terima-aduan', function(req, res) {
 
   if (req.body.terima_tugasan) {
 
-    let sql = `UPDATE aduan SET FK_Penerima_Tugasan = ${id}, Tarikh_Terima_Tugasan = now(), Komen_Teknikal = '${ulasan}', FK_Tindakan = 2 WHERE ID = ${req.body.terima_tugasan}`
+    let sql = `UPDATE aduan SET FK_Penerima_Tugasan = ${id}, Tarikh_Terima_Tugasan = now(), Komen_Teknikal = '${ulasan}', FK_Tindakan = 1 WHERE ID = ${req.body.terima_tugasan}`
 
     connection.query(sql , function(err, results) {
 
@@ -599,6 +599,18 @@ app.post('/terima-aduan', function(req, res) {
   } else if (req.body.selesai_tugasan) {
 
     let sql = `UPDATE aduan SET FK_Tindakan = 3, Tarikh_Selesai = now() WHERE ID = ${req.body.selesai_tugasan}`
+
+    connection.query(sql , function(err, results) {
+
+      console.log(results)
+
+      res.redirect(`/aduan/${user}/tindakan`)
+
+    })
+
+  } else if (req.body.dalam_tindakan) {
+
+    let sql = `UPDATE aduan SET FK_Tindakan = 2, Tarikh_Selesai = now() WHERE ID = ${req.body.dalam_tindakan}`
 
     connection.query(sql , function(err, results) {
 
