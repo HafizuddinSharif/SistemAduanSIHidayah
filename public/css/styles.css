@@ -30,6 +30,24 @@ nav a {
   color: white;
 }
 
+.box {
+  margin: 10px 0;
+}
+
+.error {
+  color: red;
+  border: solid 1px red;
+  padding: 5px;
+  margin: 5px 0;
+}
+
+.berjaya {
+  color: green;
+  border: solid 1px green;
+  padding: 5px;
+  margin: 5px 0;
+}
+
 .group-buttons a {
   text-decoration: none;
 }

@@ -45,6 +45,8 @@ var logged = false
 var pentadbir = false
 var juruteknik = false
 var selected = false
+var failed = false
+var success = false
 
 // GET Requests
 
@@ -86,10 +88,13 @@ app.get("/aduan/:user/buat-aduan", function(req, res) {
               rowsOfLokasi: rowsOfLokasi,
               rowsOfKategori: rowsOfKategori,
               rowsOfItem: rowsOfItem,
-              infoStaf: rowsOfIDStaf[0]
+              infoStaf: rowsOfIDStaf[0],
+              success: success
             }
 
             res.render("buat-aduan", obj)
+
+            success = false
 
           })
 
@@ -184,9 +189,12 @@ app.get("/aduan/:user/tukar-katalaluan", function(req, res) {
     logged: logged,
     juruteknik: juruteknik,
     user: user,
+    failed: failed
   }
 
   res.render("tukar-katalaluan", obj)
+
+  failed = false
 
 })
 
@@ -473,7 +481,13 @@ app.post("/buat-aduan", function(req, res) {
 
     connection.query(sql, function(err, results) {
 
-      res.redirect(`/aduan/${user}/buat-aduan`)
+      if (results) {
+
+        success = true
+
+        res.redirect(`/aduan/${user}/buat-aduan`)
+
+      }
 
     })
 
@@ -492,8 +506,10 @@ app.post("/tukar-katalaluan", function(req, res) {
 
     if (!results || id_pengguna != user) {
 
+      failed = true
+
       res.redirect(`/aduan/${user}/tukar-katalaluan`)
-      
+
     }
 
     else {

@@ -17,7 +17,15 @@
 
       <h1 class="header">Buat Aduan</h1>
 
+
+
       <form name="aduan" class="aduan" action="/buat-aduan" method="post">
+
+        <% if (success) { %>
+          <div class="box">
+            <span class="berjaya">Aduan berjaya disimpan</span>
+          </div>
+        <% } %>
 
         <!-- MAKLUMAT PENGADU -->
 
