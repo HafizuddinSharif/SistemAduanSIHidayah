@@ -28,15 +28,11 @@
           <table class="center-table">
             <tbody>
               <tr>
-                <td><label for="no_aduan">No Aduan</label></td>
-                <td><input class="no-aduan" type="text" name="no_aduan" value=""></td>
-              </tr>
-              <tr>
                 <td><label for="id_pengguna">ID Pengguna</label></td>
-                <td><input class="id-pengguna" type="text" name="id_pengguna" value="<%= infoStaf.ID %>"></td>
+                <td><input class="id-pengguna" type="text" name="id_pengguna" value="<%= infoStaf.ID %>" required></td>
 
                 <td><label for="nama_pengadu">Nama Pengadu</label></td>
-                <td class="nama-pengadu-input"><input class="nama-pengadu" type="text" name="nama_pengadu" value="<%= infoStaf.Nama_Staf %>"></td>
+                <td class="nama-pengadu-input"><input class="nama-pengadu" type="text" name="nama_pengadu" value="<%= infoStaf.Nama_Staf %>" required></td>
               </tr>
             </tbody>
           </table>
@@ -54,8 +50,8 @@
               <tr>
                 <td><label for="jenis_aduan">Jenis Aduan</label></td>
                 <td>
-                  <select class="jenis_aduan "name="jenis_aduan">
-                    <option value="0">Sila Pilih</option>
+                  <select class="jenis_aduan "name="jenis_aduan" required>
+                    <option value="" selected disabled>Sila Pilih</option>
                     <option value="1">Senggara</option>
                     <option value="2">Kebersihan</option>
                     <option value="3">Perkebunan</option>
@@ -66,8 +62,8 @@
               <tr>
                 <td><label for="kawasan">Kawasan</label></td>
                 <td>
-                  <select class="kawasan" name="kawasan">
-                    <option value="">Sila Pilih</option>
+                  <select class="kawasan" name="kawasan" required>
+                    <option value="" selected disabled>Sila Pilih</option>
                     <% rowsOfKawasan.forEach( function(row) { %>
                     <option value="<%= row.PK_Kawasan %>"><%= row.Nama_Kawasan %> </option>
                     <% }) %>
@@ -77,8 +73,8 @@
               <tr>
                 <td><label for="lokasi">Lokasi</label></td>
                 <td>
-                  <select class="lokasi" name="lokasi">
-                    <option value="">Sila Pilih</option>
+                  <select class="lokasi" name="lokasi" required>
+                    <option value="" selected disabled>Sila Pilih</option>
                     <% rowsOfLokasi.forEach( function(row) { %>
                     <option value="<%= row.PK_Lokasi %>"><%= row.Nama_Lokasi %> </option>
                     <% }) %>
@@ -88,8 +84,8 @@
               <tr>
                 <td><label for="kategori">Kategori</label></td>
                 <td>
-                  <select class="" name="kategori">
-                    <option value="">Sila Pilih</option>
+                  <select class="" name="kategori" required>
+                    <option value="" selected disabled>Sila Pilih</option>
                     <% rowsOfKategori.forEach( function(row) { %>
                     <option value="<%= row.PK_Kategori %>"><%= row.Nama_Kategori %> </option>
                     <% }) %>
@@ -99,8 +95,8 @@
               <tr>
                 <td><label for="item">Item</label></td>
                 <td>
-                  <select class="" name="item">
-                    <option value="">Sila Pilih</option>
+                  <select class="" name="item" required>
+                    <option value="" selected disabled>Sila Pilih</option>
                     <% rowsOfItem.forEach( function(row) { %>
                     <option value="<%= row.PK_Peralatan %>"><%= row.Nama_Peralatan %> </option>
                     <% }) %>
@@ -109,11 +105,11 @@
               </tr>
               <tr>
                 <td><label for="perihal">Perihal</label></td>
-                <td><textarea name="perihal" rows="8" cols="30"></textarea></td>
+                <td><textarea name="perihal" rows="8" cols="30" required></textarea></td>
               </tr>
               <tr>
                 <td><label for="tarikh_aduan">Tarikh Aduan</label></td>
-                <td><input type="date" name="tarikh_aduan" value=""></td>
+                <td><input type="date" name="tarikh_aduan" value="" required></td>
               </tr>
             </tbody>
           </table>

@@ -490,33 +490,43 @@ app.post("/tukar-katalaluan", function(req, res) {
 
   connection.query(sql1, function(err, results) {
 
-    let hash1 = results[0].Kata_laluan
+    if (!results || id_pengguna != user) {
 
-    bcrypt.compare(katalaluan, hash1, function(err, result1) {
+      res.redirect(`/aduan/${user}/tukar-katalaluan`)
+      
+    }
 
-      if (err) throw err;
+    else {
 
-      if (result1) {
+      let hash1 = results[0].Kata_laluan
 
-        bcrypt.hash(req.body.katalaluan_baru, saltRounds, function(err, hash2) {
+      bcrypt.compare(katalaluan, hash1, function(err, result1) {
 
-          let sql2 = `UPDATE direktori_pengguna SET Kata_Laluan = '${hash2}' WHERE ID_Pengguna = '${id_pengguna}'`
+        if (err) throw err;
 
-          connection.query(sql2, function(err, result2) {
+        if (result1) {
 
-            res.redirect(`/aduan`);
+          bcrypt.hash(req.body.katalaluan_baru, saltRounds, function(err, hash2) {
+
+            let sql2 = `UPDATE direktori_pengguna SET Kata_Laluan = '${hash2}' WHERE ID_Pengguna = '${id_pengguna}'`
+
+            connection.query(sql2, function(err, result2) {
+
+              res.redirect(`/aduan`);
+
+            })
 
           })
 
-        })
+        } else {
 
-      } else {
+          res.redirect(`/aduan/${user}/tukar-katalaluan`);
 
-        res.redirect(`/aduan/${user}/tukar-katalaluan`);
+        }
 
-      }
+      });
 
-    });
+    }
 
   })
 
