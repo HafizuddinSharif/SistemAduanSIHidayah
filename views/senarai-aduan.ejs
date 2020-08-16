@@ -17,38 +17,42 @@
 
         <form class="" action="/info-aduan" method="post">
 
-        <table class="direktori center-table">
-          <thead>
-            <tr>
-              <th>No. Aduan</th>
-              <th>Tarikh</th>
-              <th>Jenis Aduan</th>
-              <th>Kawasan</th>
-              <th>Lokasi</th>
-            </tr>
-          </thead>
-          <tbody class="clickable-row">
-            <% rowsOfAduan.forEach( function(row) { %>
-            <% if (row.FK_Tindakan < 4) { %>
-              <% if (row.FK_Tindakan == 1) { %>
-              <tr class="blue">
-              <% } else if (row.FK_Tindakan == 2) { %>
-              <tr class="yellow">
-              <% } else if (row.FK_Tindakan == 3) { %>
-              <tr class="green">
-              <% } else { %>
+        <% if (rowsOfAduan.length == 0) { %>
+          <p>Nampaknye awak takde buat aduan apa2</p>
+        <% } else { %>
+          <table class="direktori center-table">
+            <thead>
               <tr>
-              <% } %>
-                <td><%= row.No_Aduan %></td>
-                <td><%= row.Tarikh_Aduan %></td>
-                <td><%= row.Nama_Bidang %></td>
-                <td><%= row.Nama_Kawasan %></td>
-                <td><%= row.Nama_Lokasi %></td>
+                <th>No. Aduan</th>
+                <th>Tarikh</th>
+                <th>Jenis Aduan</th>
+                <th>Kawasan</th>
+                <th>Lokasi</th>
               </tr>
-              <% } %>
-            <% }) %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody class="clickable-row">
+              <% rowsOfAduan.forEach( function(row) { %>
+              <% if (row.FK_Tindakan < 4) { %>
+                <% if (row.FK_Tindakan == 1) { %>
+                <tr class="blue">
+                <% } else if (row.FK_Tindakan == 2) { %>
+                <tr class="yellow">
+                <% } else if (row.FK_Tindakan == 3) { %>
+                <tr class="green">
+                <% } else { %>
+                <tr>
+                <% } %>
+                  <td><%= row.No_Aduan %></td>
+                  <td><%= row.Tarikh_Aduan %></td>
+                  <td><%= row.Nama_Bidang %></td>
+                  <td><%= row.Nama_Kawasan %></td>
+                  <td><%= row.Nama_Lokasi %></td>
+                </tr>
+                <% } %>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } %>
 
         <button class="hidden" type="submit" name="semak" id="semak">Semak</button>
         <button class="hidden" type="submit" name="hapus" id="hapus">Hapus</button>

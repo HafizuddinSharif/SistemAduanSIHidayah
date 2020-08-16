@@ -160,7 +160,7 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan/:no_aduan", function(req, res)
             JOIN rujukan_item
             	ON aduan.FK_Rujukan_Item = rujukan_item.ID
             JOIN direktori_pengguna dp
-	             ON aduan.FK_Penerima_Tugasan = dp.ID
+	             ON aduan.FK_Penerima_Tugasan = dp.Bil
             WHERE direktori_pengguna.ID_Pengguna = '${user}' AND aduan.No_Aduan = '${req.params.no_aduan}'`
 
   connection.query(sql, function(err, rowsOfAduan) {
@@ -173,7 +173,7 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan/:no_aduan", function(req, res)
       aduan: rowsOfAduan[0]
     }
 
-    console.log(user, id)
+    console.log(user, id, req.params.no_aduan)
     console.log(rowsOfAduan[0])
 
     res.render("info-aduan", obj)
