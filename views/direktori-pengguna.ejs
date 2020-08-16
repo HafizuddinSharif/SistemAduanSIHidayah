@@ -33,11 +33,13 @@
             </thead>
             <tbody class="clickable-row">
               <% rowsOfStaf.forEach(function(row){ %>
-              <tr>
-                <td><%= row.ID %></td>
-                <td><%= row.Jenis_ID %></td>
-                <td><%= row.Nama_Staf %> </td>
-              </tr>
+              <!-- <% if (row.Bil >= 1) { %> -->
+                <tr>
+                  <td><%= row.Bil %></td>
+                  <td><%= row.Jenis_ID %></td>
+                  <td><%= row.Nama_Staf %> </td>
+                </tr>
+              <!-- <% } %> -->
               <% }) %>
             </tbody>
           </table>

@@ -200,7 +200,7 @@ app.get("/aduan/:user/tukar-katalaluan", function(req, res) {
 
 app.get("/aduan/:user/direktori-pengguna", function(req, res) {
 
-  let sql = `SELECT ID, Nama_Staf, Jenis_ID FROM direktori_pengguna`
+  let sql = `SELECT ID, Nama_Staf, Jenis_ID, Bil FROM direktori_pengguna`
 
   connection.query(sql, function(req, rowsOfStaf) {
 
