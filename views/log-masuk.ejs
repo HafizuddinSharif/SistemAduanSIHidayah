@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/log-masuk.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log Masuk</title>
   </head>
   <body>
@@ -16,7 +17,11 @@
       </div>
 
       <div class="borang">
+        <% if (failed) { %>
+        <span class="red">Cuba lagi</span>
+        <% } else { %>
         <span>Log Masuk</span>
+        <% } %>
 
         <form class="" action="/log-masuk" method="post">
 
@@ -33,7 +38,6 @@
           <div class="log-masuk-button">
             <button type="submit" name="log-masuk">Log masuk</button>
           </div>
-
 
         </form>
 

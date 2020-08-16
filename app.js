@@ -58,7 +58,14 @@ app.get("/aduan", function(req, res) {
   pentadbir = false
   juruteknik = false
 
-  res.render("log-masuk")
+  let obj = {
+    failed: failed
+  }
+
+  res.render("log-masuk", obj)
+
+  failed = false
+
 })
 
 app.get("/aduan/:user/buat-aduan", function(req, res) {
@@ -350,37 +357,49 @@ app.post("/log-masuk", function(req, res) {
 
   connection.query(sql, function (error, results, fields) {
 
-    let hash = results[0].Kata_laluan
+    if (results.length == 0) {
 
-    bcrypt.compare(password, hash, function(err, result) {
+      failed = true
 
-      if (err) throw err;
+      res.redirect(`/aduan`)
 
-      if (result) {
+    } else {
 
-        name = results[0].Nama_Staf
-        logged = true
-        id = results[0].ID
+      let hash = results[0].Kata_laluan
 
-        if (results[0].Jenis_ID == 'Pentadbir') {
+      bcrypt.compare(password, hash, function(err, result) {
 
-          pentadbir = true
+        if (err) throw err;
 
-        } else if (results[0].Jenis_ID == 'Baikpulih') {
+        if (result) {
 
-          juruteknik = true
+          name = results[0].Nama_Staf
+          logged = true
+          id = results[0].ID
+
+          if (results[0].Jenis_ID == 'Pentadbir') {
+
+            pentadbir = true
+
+          } else if (results[0].Jenis_ID == 'Baikpulih') {
+
+            juruteknik = true
+
+          }
+
+          res.redirect(`/aduan/${user}/buat-aduan`);
+
+        } else {
+
+          failed = true
+
+          res.redirect("/aduan");
 
         }
 
-        res.redirect(`/aduan/${user}/buat-aduan`);
+      });
 
-      } else {
-
-        res.redirect("/aduan");
-
-      }
-
-    });
+    }
 
   });
 

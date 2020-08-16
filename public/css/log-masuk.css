@@ -20,6 +20,10 @@ body {
 
 /* LOG MASUK PAGE */
 
+.red {
+  color: red;
+}
+
 .container {
   width: auto;
   height: auto;
