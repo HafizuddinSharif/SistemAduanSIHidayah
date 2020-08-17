@@ -325,7 +325,7 @@ app.get("/aduan/:user/tindakan/:no_tindakan", function(req, res) {
             JOIN rujukan_item
             	ON aduan.FK_Rujukan_Item = rujukan_item.ID
             JOIN direktori_pengguna dp
-            	ON aduan.FK_Penerima_Tugasan = dp.ID
+            	ON aduan.FK_Penerima_Tugasan = dp.Bil
             WHERE aduan.ID = ${req.params.no_tindakan}`
 
   connection.query(sql, function(err, rowsOfAduan) {
@@ -495,7 +495,7 @@ app.post("/buat-aduan", function(req, res) {
     let real_no_aduan =  `AG${written_tahun}${written_bulan}-${number}`
 
     let columns = `No_Aduan, Tarikh_Aduan, FK_Pengadu, FK_Kawasan, FK_Lokasi, Catatan_Kerosakan, FK_Rujukan_Item, FK_Kategori, FK_Bidang_Tugas, Tahun, Bulan`
-    let values = `'${real_no_aduan}', '${tarikh_aduan}', '${id_pengguna}', '${kawasan}', '${lokasi}', '${perihal}', '${item}', '${kategori}', '${jenis_aduan}', '${tahun}', '${bulan}'`
+    let values = `'${real_no_aduan}', now(), '${id_pengguna}', '${kawasan}', '${lokasi}', '${perihal}', '${item}', '${kategori}', '${jenis_aduan}', '${tahun}', '${bulan}'`
     let sql = `INSERT INTO aduan (${columns}) VALUES (${values})`
 
     connection.query(sql, function(err, results) {
@@ -628,12 +628,11 @@ app.post('/tindakan-lengkap', function(req, res) {
 
 app.post('/terima-aduan', function(req, res) {
 
-  // let tarikh_terima = req.body.tarikh_terima
   let ulasan = req.body.ulasan
 
   if (req.body.terima_tugasan) {
 
-    let sql = `UPDATE aduan SET FK_Penerima_Tugasan = ${id}, Tarikh_Terima_Tugasan = now(), Komen_Teknikal = '${ulasan}', FK_Tindakan = 1 WHERE ID = ${req.body.terima_tugasan}`
+    let sql = `UPDATE aduan SET FK_Penerima_Tugasan = ${id - 2}, Tarikh_Terima_Tugasan = now(), Komen_Teknikal = '${ulasan}', FK_Tindakan = 1 WHERE ID = ${req.body.terima_tugasan}`
 
     connection.query(sql , function(err, results) {
 
@@ -647,8 +646,6 @@ app.post('/terima-aduan', function(req, res) {
 
     connection.query(sql , function(err, results) {
 
-      console.log(results)
-
       res.redirect(`/aduan/${user}/tindakan`)
 
     })
@@ -658,8 +655,6 @@ app.post('/terima-aduan', function(req, res) {
     let sql = `UPDATE aduan SET FK_Tindakan = 2, Tarikh_Selesai = now() WHERE ID = ${req.body.dalam_tindakan}`
 
     connection.query(sql , function(err, results) {
-
-      console.log(results)
 
       res.redirect(`/aduan/${user}/tindakan`)
 
