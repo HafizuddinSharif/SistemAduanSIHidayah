@@ -17,7 +17,13 @@
 
         <form class="" action="/info-aduan" method="post">
 
-        <% if (rowsOfAduan.length == 0) { %>
+        <% let ada = false %>
+        <% rowsOfAduan.forEach( function(row) { %>
+        <% if (row.FK_Tindakan < 4) { %>
+        <%  ada = true %>
+        <% } %>
+        <% }) %>
+        <% if (!ada) { %>
           <p>Nampaknye awak takde buat aduan apa2</p>
         <% } else { %>
           <table class="direktori center-table">
