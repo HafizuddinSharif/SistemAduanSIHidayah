@@ -422,40 +422,50 @@ app.post("/daftar", function(req, res) {
     // var date = "" + tarikh_daftar.getFullYear() + "-" + tarikh_daftar.getMonth() + "-" + tarikh_daftar.getDate()
     var date = '2020-01-16'
 
+    let sql2 = 'SELECT * FROM direktori_pengguna'
 
-    var sql = "INSERT INTO direktori_pengguna (ID_Pengguna, Kata_Laluan, Nama_Staf, No_Telefon, Jawatan, Emel, Bidang_Tugas, Created_Date, Jenis_ID) VALUES ('" +
-      username + "', '" +
-      password + "', '" +
-      nama_staf + "', '" +
-      no_telefon + "', '" +
-      jawatan + "', '" +
-      emel + "', '" +
-      bidang_tugas + "', '" +
-      date + "', '" +
-      jenis_id + "')"
+    connection.query(sql2, function(error, results1) {
 
-    if (selected) {
+      let length = results1.length
 
-      sql = `UPDATE direktori_pengguna
-      SET ID_Pengguna = '${username}',
-      Nama_Staf = '${nama_staf}',
-      No_Telefon = '${no_telefon}',
-      Jawatan = '${jawatan}',
-      Emel = '${emel}',
-      Bidang_Tugas = '${bidang_tugas}',
-      Created_Date = '${date}',
-      Jenis_ID = '${jenis_id}'
-      WHERE ID_Pengguna = '${username}'`
+      var sql = "INSERT INTO direktori_pengguna (ID_Pengguna, Kata_Laluan, Nama_Staf, No_Telefon, Jawatan, Emel, Bidang_Tugas, Created_Date, Jenis_ID, Bil) VALUES ('" +
+        username + "', '" +
+        password + "', '" +
+        nama_staf + "', '" +
+        no_telefon + "', '" +
+        jawatan + "', '" +
+        emel + "', '" +
+        bidang_tugas + "', '" +
+        date + "', '" +
+        jenis_id + "', '" +
+        (length-1) + "')"
 
-    }
+      if (selected) {
 
-    connection.query(sql, function(error, results) {
-      if (error) {
-        console.log(error)
-      } else {
-        res.redirect(`/aduan/${user}/direktori-pengguna`)
+        sql = `UPDATE direktori_pengguna
+        SET ID_Pengguna = '${username}',
+        Nama_Staf = '${nama_staf}',
+        No_Telefon = '${no_telefon}',
+        Jawatan = '${jawatan}',
+        Emel = '${emel}',
+        Bidang_Tugas = '${bidang_tugas}',
+        Created_Date = now(),
+        Jenis_ID = '${jenis_id}'
+        WHERE ID_Pengguna = '${username}'`
+
       }
+
+      connection.query(sql, function(error, results) {
+
+        if (error) {
+          console.log(error)
+        } else {
+          res.redirect(`/aduan/${user}/direktori-pengguna`)
+        }
+      })
+
     })
+
   });
 
 });

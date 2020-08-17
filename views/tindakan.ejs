@@ -35,24 +35,30 @@
             </tr>
           </thead>
           <tbody class="clickable-row">
+
             <% rowsOfAduan.forEach( function(row) { %>
-            <% if (row.FK_Tindakan == 1) { %>
-            <tr class="blue">
-            <% } else if (row.FK_Tindakan == 2) { %>
-            <tr class="yellow">
-            <% } else if (row.FK_Tindakan == 3) { %>
-            <tr class="green">
-            <% } else { %>
-            <tr>
-            <% } %>
-              <td><%= row.ID %></td>
-              <td><%= row.No_Aduan %></td>
-              <td><%= row.Nama_Kawasan %></td>
-              <td><%= row.Nama_Lokasi %></td>
-              <td><%= row.Nama_Bidang %></td>
-              <td><%= row.Nama_Kategori %></td>
-              <td><%= row.Catatan_Kerosakan %></td>
-            </tr>
+
+              <% if (row.FK_Tindakan < 4) { %>
+                <% if (row.FK_Tindakan == 1) { %>
+                <tr class="blue">
+                <% } else if (row.FK_Tindakan == 2) { %>
+                <tr class="yellow">
+                <% } else if (row.FK_Tindakan == 3) { %>
+                <tr class="green">
+                <% } else { %>
+                <tr>
+                <% } %>
+                  <td><%= row.ID %></td>
+                  <td><%= row.No_Aduan %></td>
+                  <td><%= row.Nama_Kawasan %></td>
+                  <td><%= row.Nama_Lokasi %></td>
+                  <td><%= row.Nama_Bidang %></td>
+                  <td><%= row.Nama_Kategori %></td>
+                  <td><%= row.Catatan_Kerosakan %></td>
+                </tr>
+
+              <% } %>
+              
             <% }) %>
           </tbody>
         </table>
