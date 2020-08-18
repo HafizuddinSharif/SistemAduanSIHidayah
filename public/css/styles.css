@@ -41,6 +41,19 @@ nav a {
   margin: 5px 0;
 }
 
+.logout-form {
+  display: inline;
+  padding: 0;
+}
+
+.logout-button {
+  margin-top: 0;
+  background-color: black;
+  padding: 0;
+  font-size: 16px;
+  
+}
+
 .berjaya {
   color: green;
   border: solid 1px green;

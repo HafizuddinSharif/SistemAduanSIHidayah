@@ -9,5 +9,7 @@
         <% if (juruteknik) { %>
         <a href="/aduan/<%= user %>/tindakan">Tindakan</a>
         <% } %>
-        <a class="log-keluar" href="/aduan">Log Keluar</a>
+        <form class="logout-form" action="/log-keluar?_method=DELETE" method="POST">
+          <button class="logout-button" type="submit" name="button">Log Keluar</button>
+        </form>
       </nav>

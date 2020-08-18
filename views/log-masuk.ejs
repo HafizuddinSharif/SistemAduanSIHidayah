@@ -17,22 +17,18 @@
       </div>
 
       <div class="borang">
-        <% if (failed) { %>
-        <span class="red">Cuba lagi</span>
-        <% } else { %>
         <span>Log Masuk</span>
-        <% } %>
 
         <form class="" action="/log-masuk" method="post">
 
           <div class="id-pengguna">
             <label for="name">ID Pengguna</label>
-            <input type="text" name="id" value="">
+            <input type="text" name="name" value="">
           </div>
 
           <div class="kata-laluan">
-            <label for="pass">Kata Laluan</label>
-            <input type="password" name="pass" value="">
+            <label for="password">Kata Laluan</label>
+            <input type="password" name="password" value="">
           </div>
 
           <div class="log-masuk-button">
@@ -40,6 +36,10 @@
           </div>
 
         </form>
+
+        <% if (messages.error) { %>
+          <%= messages.error %>
+        <% } %>
 
       </div>
 

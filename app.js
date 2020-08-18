@@ -1,16 +1,42 @@
 //jshint esversion:6
+require('dotenv').config()
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const ejs = require('ejs');
+const passport = require('passport');
+const flash = require('express-flash');
+const session = require('express-session')
+const methodOverride = require('method-override')
 
 const app = express()
+
+const initializePassport = require('./passport-config')
+
+initializePassport(
+  passport,
+  email => users.find(user => user.ID_Pengguna === email),
+  id => users.find(user => user.ID === parseInt(id))
+)
 
 app.set('view engine', 'ejs')
 
 app.use(bodyParser.urlencoded({extended: false}))
+
+app.use(flash())
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use(methodOverride('_method'))
 
 app.use(express.static(__dirname + "/public"))
 
@@ -36,6 +62,14 @@ connection.connect(function(err) {
   console.log('connected as id ' + connection.threadId);
 });
 
+// To get and store the direktori_pengguna
+
+var users = []
+
+connection.query(`SELECT ID, ID_Pengguna, Kata_Laluan, Nama_Staf, Jenis_ID FROM direktori_pengguna`, function(err, results) {
+  users = results
+})
+
 // VARIABLES
 
 var user = ""
@@ -50,31 +84,31 @@ var success = false
 
 // GET Requests
 
-app.get("/aduan", function(req, res) {
+app.get("/aduan", checkNotAuthenticated, function(req, res) {
 
-  logged = false
   user = ""
   id = 0
   pentadbir = false
   juruteknik = false
 
-  let obj = {
-    failed: failed
-  }
-
-  res.render("log-masuk", obj)
-
-  failed = false
-
+  res.render("log-masuk")
 })
 
-app.get("/aduan/:user/buat-aduan", function(req, res) {
+app.get("/aduan/:user/buat-aduan", checkAunthenticated, function(req, res) {
+
+  user = req.user.ID_Pengguna
+  id = req.user.ID
+
+  if (req.user.Jenis_ID === 'Pentadbir') pentadbir = true
+  if (req.user.Jenis_ID === 'Baikpulih') juruteknik = true
+
+  console.log(user)
 
   let sql1 = `SELECT PK_Kawasan, Nama_Kawasan FROM kawasan`
   let sql2 = `SELECT PK_Lokasi, FK_Kawasan, Nama_Lokasi FROM lokasi`
   let sql3 = `SELECT PK_Kategori, Nama_Kategori FROM kategori`
   let sql4 = `SELECT PK_Peralatan, Nama_Peralatan FROM senarai_peralatan`
-  let sql5 = `SELECT ID, Nama_Staf FROM direktori_pengguna WHERE ID_Pengguna = '${user}'`
+  let sql5 = `SELECT ID, Nama_Staf FROM direktori_pengguna WHERE ID_Pengguna = '${req.user.ID_Pengguna}'`
 
   connection.query(sql1 , function(err, rowsOfKawasan) {
 
@@ -179,9 +213,6 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan/:no_aduan", function(req, res)
       user: user,
       aduan: rowsOfAduan[0]
     }
-
-    console.log(user, id, req.params.no_aduan)
-    console.log(rowsOfAduan[0])
 
     res.render("info-aduan", obj)
 
@@ -348,62 +379,68 @@ app.get("/aduan/:user/tindakan/:no_tindakan", function(req, res) {
 
 // POST Requests
 
-app.post("/log-masuk", function(req, res) {
+// app.post("/log-masuk", function(req, res) {
+//
+//   user = req.body.id
+//   let password = req.body.pass
+//
+//   let sql = `SELECT ID, ID_Pengguna, Kata_laluan, Jenis_ID, Nama_Staf FROM direktori_pengguna WHERE ID_Pengguna = '${user}'`
+//
+//   connection.query(sql, function (error, results, fields) {
+//
+//     if (results.length == 0) {
+//
+//       failed = true
+//
+//       res.redirect(`/aduan`)
+//
+//     } else {
+//
+//       let hash = results[0].Kata_laluan
+//
+//       bcrypt.compare(password, hash, function(err, result) {
+//
+//         if (err) throw err;
+//
+//         if (result) {
+//
+//           name = results[0].Nama_Staf
+//           logged = true
+//           id = results[0].ID
+//
+//           if (results[0].Jenis_ID == 'Pentadbir') {
+//
+//             pentadbir = true
+//
+//           } else if (results[0].Jenis_ID == 'Baikpulih') {
+//
+//             juruteknik = true
+//
+//           }
+//
+//           res.redirect(`/aduan/${user}/buat-aduan`);
+//
+//         } else {
+//
+//           failed = true
+//
+//           res.redirect("/aduan");
+//
+//         }
+//
+//       });
+//
+//     }
+//
+//   });
+//
+// })
 
-  user = req.body.id
-  let password = req.body.pass
-
-  let sql = `SELECT ID, ID_Pengguna, Kata_laluan, Jenis_ID, Nama_Staf FROM direktori_pengguna WHERE ID_Pengguna = '${user}'`
-
-  connection.query(sql, function (error, results, fields) {
-
-    if (results.length == 0) {
-
-      failed = true
-
-      res.redirect(`/aduan`)
-
-    } else {
-
-      let hash = results[0].Kata_laluan
-
-      bcrypt.compare(password, hash, function(err, result) {
-
-        if (err) throw err;
-
-        if (result) {
-
-          name = results[0].Nama_Staf
-          logged = true
-          id = results[0].ID
-
-          if (results[0].Jenis_ID == 'Pentadbir') {
-
-            pentadbir = true
-
-          } else if (results[0].Jenis_ID == 'Baikpulih') {
-
-            juruteknik = true
-
-          }
-
-          res.redirect(`/aduan/${user}/buat-aduan`);
-
-        } else {
-
-          failed = true
-
-          res.redirect("/aduan");
-
-        }
-
-      });
-
-    }
-
-  });
-
-})
+app.post('/log-masuk', passport.authenticate('local', {
+  successRedirect: `/aduan/test/buat-aduan`,
+  failureRedirect: `/aduan`,
+  failureFlash: true
+}))
 
 app.post("/daftar", function(req, res) {
 
@@ -672,9 +709,28 @@ app.post('/terima-aduan', function(req, res) {
 
   }
 
-
 })
 
+app.delete('/log-keluar', (req, res) => {
+  req.logOut()
+  res.redirect(`/aduan`)
+})
+
+function checkAunthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+
+  res.redirect(`/aduan`)
+
+}
+
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect(`aduan/${req.user.ID_Pengguna}/buat-aduan`)
+  }
+  next()
+}
 
 app.listen(3000, function() {
   console.log("Server started on port 3000")
