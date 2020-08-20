@@ -570,7 +570,7 @@ app.post("/tukar-katalaluan", function(req, res) {
 
   connection.query(sql1, function(err, results) {
 
-    if (!results || id_pengguna != user) {
+    if (!results || id_pengguna != req.user.ID_Pengguna) {
 
       failed = true
 
@@ -594,13 +594,18 @@ app.post("/tukar-katalaluan", function(req, res) {
 
             connection.query(sql2, function(err, result2) {
 
-              res.redirect(`/aduan`);
+              req.user.Kata_Laluan = hash2
+
+              req.logOut()
+              res.redirect(`/aduan`)
 
             })
 
           })
 
         } else {
+
+          failed = true
 
           res.redirect(`/aduan/${user}/tukar-katalaluan`);
 
