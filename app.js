@@ -186,7 +186,7 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 
 app.get("/aduan/:user/semakan-aduan/senarai-aduan/:no_aduan", function(req, res) {
 
-  let sql = `SELECT direktori_pengguna.ID_Pengguna, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, rujukan_item.Nama_Item, dp.Nama_Staf, Tarikh_Terima_Tugasan, Komen_Teknikal, Tarikh_Selesai
+  let sql = `SELECT direktori_pengguna.ID_Pengguna, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, senarai_peralatan.Nama_Peralatan, dp.Nama_Staf, Tarikh_Terima_Tugasan, Komen_Teknikal, Tarikh_Selesai
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
@@ -198,8 +198,8 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan/:no_aduan", function(req, res)
             	ON aduan.FK_Kategori = kategori.PK_Kategori
             JOIN bidang_tugas
             	ON aduan.FK_Bidang_Tugas = bidang_tugas.No_Bidang
-            JOIN rujukan_item
-            	ON aduan.FK_Rujukan_Item = rujukan_item.ID
+            JOIN senarai_peralatan
+            	ON aduan.FK_Rujukan_Item = senarai_peralatan.PK_Peralatan
             JOIN direktori_pengguna dp
 	             ON aduan.FK_Penerima_Tugasan = dp.Bil
             WHERE direktori_pengguna.ID_Pengguna = '${user}' AND aduan.No_Aduan = '${req.params.no_aduan}'`
@@ -341,7 +341,7 @@ app.get("/aduan/:user/tindakan", function(req, res) {
 
 app.get("/aduan/:user/tindakan/:no_tindakan", function(req, res) {
 
-  let sql = `SELECT direktori_pengguna.ID_Pengguna, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, rujukan_item.Nama_Item
+  let sql = `SELECT direktori_pengguna.ID_Pengguna, aduan.No_Aduan, aduan.Tarikh_Aduan, kawasan.Nama_Kawasan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, senarai_peralatan.Nama_Peralatan
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
@@ -353,8 +353,8 @@ app.get("/aduan/:user/tindakan/:no_tindakan", function(req, res) {
             	ON aduan.FK_Kategori = kategori.PK_Kategori
             JOIN bidang_tugas
             	ON aduan.FK_Bidang_Tugas = bidang_tugas.No_Bidang
-            JOIN rujukan_item
-            	ON aduan.FK_Rujukan_Item = rujukan_item.ID
+            JOIN senarai_peralatan
+            	ON aduan.FK_Rujukan_Item = senarai_peralatan.PK_Peralatan
             JOIN direktori_pengguna dp
             	ON aduan.FK_Penerima_Tugasan = dp.Bil
             WHERE aduan.ID = ${req.params.no_tindakan}`
