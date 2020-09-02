@@ -68,12 +68,12 @@
                 </td>
               </tr>
               <tr>
-                <td><label for="kawasan">Kawasan</label></td>
+                <td><label for="bangunan">Bangunan</label></td>
                 <td>
-                  <select class="kawasan" name="kawasan" required>
+                  <select class="bangunan" name="bangunan" required>
                     <option value="" selected disabled>Sila Pilih</option>
-                    <% rowsOfKawasan.forEach( function(row) { %>
-                    <option value="<%= row.PK_Kawasan %>"><%= row.Nama_Kawasan %> </option>
+                    <% rowsOfBangunan.forEach( function(row) { %>
+                    <option value="<%= row.PK_Bangunan %>"><%= row.Nama_Bangunan %> </option>
                     <% }) %>
                   </select>
                 </td>
@@ -137,9 +137,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/public/javascript/buat-aduan.js"></script>
     <script type="text/javascript">
-    $(".kawasan").click( function(event) {
+    $(".bangunan").click( function(event) {
 
-      let current_kawasan = document.aduan.kawasan.value
+      let current_bangunan = document.aduan.bangunan.value
       let index = 1
       let data = <%- JSON.stringify(rowsOfLokasi) %>
 
@@ -147,7 +147,7 @@
       document.aduan.lokasi.options[0] = new Option("Sila Pilih", "0", true, false)
 
       data.forEach( function(row) {
-        if (row.FK_Kawasan == current_kawasan) {
+        if (row.FK_Kawasan == current_bangunan) {
           document.aduan.lokasi.options[index] = new Option(`${row.Nama_Lokasi}`, `${row.PK_Lokasi}`, false, false)
           index++
         }
