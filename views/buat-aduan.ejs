@@ -68,6 +68,17 @@
                 </td>
               </tr>
               <tr>
+                <td><label for="sekolah">Sekolah</label></td>
+                <td>
+                  <select class="sekolah" name="sekolah" required>
+                    <option value="" selected disabled>Sila Pilih</option>
+                    <% rowsOfSekolah.forEach( function(row) { %>
+                    <option value="<%= row.PK_Sekolah %>"><%= row.Nama_Sekolah %> </option>
+                    <% }) %>
+                  </select>
+                </td>
+              </tr>
+              <tr>
                 <td><label for="bangunan">Bangunan</label></td>
                 <td>
                   <select class="bangunan" name="bangunan" required>
@@ -147,7 +158,7 @@
       document.aduan.lokasi.options[0] = new Option("Sila Pilih", "0", true, false)
 
       data.forEach( function(row) {
-        if (row.FK_Kawasan == current_bangunan) {
+        if (row.FK_Bangunan == current_bangunan) {
           document.aduan.lokasi.options[index] = new Option(`${row.Nama_Lokasi}`, `${row.PK_Lokasi}`, false, false)
           index++
         }

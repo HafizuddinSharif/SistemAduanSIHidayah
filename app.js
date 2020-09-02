@@ -104,11 +104,12 @@ app.get("/aduan/:user/buat-aduan", checkAunthenticated, function(req, res) {
 
   console.log(user)
 
-  let sql1 = `SELECT PK_Bangunan, Nama_Bangunan FROM bangunan`
-  let sql2 = `SELECT PK_Lokasi, FK_Kawasan, Nama_Lokasi FROM lokasi`
+  let sql1 = `SELECT PK_Bangunan, Nama_Bangunan FROM bangunan2`
+  let sql2 = `SELECT PK_Lokasi, FK_Bangunan, Nama_Lokasi FROM lokasi2`
   let sql3 = `SELECT PK_Kategori, Nama_Kategori FROM kategori`
   let sql4 = `SELECT PK_Peralatan, Nama_Peralatan FROM senarai_peralatan`
   let sql5 = `SELECT ID, Nama_Staf FROM direktori_pengguna WHERE ID_Pengguna = '${req.user.ID_Pengguna}'`
+  let sql6 = `SELECT PK_Sekolah, Nama_Sekolah FROM sekolah`
 
   connection.query(sql1 , function(err, rowsOfBangunan) {
 
@@ -120,22 +121,29 @@ app.get("/aduan/:user/buat-aduan", checkAunthenticated, function(req, res) {
 
           connection.query(sql5, function(err, rowsOfIDStaf) {
 
-            let obj = {
-              pentadbir: pentadbir,
-              logged: logged,
-              juruteknik: juruteknik,
-              user: user,
-              rowsOfBangunan: rowsOfBangunan,
-              rowsOfLokasi: rowsOfLokasi,
-              rowsOfKategori: rowsOfKategori,
-              rowsOfItem: rowsOfItem,
-              infoStaf: rowsOfIDStaf[0],
-              success: success
-            }
+            connection.query(sql6, function(err, rowsOfSekolah) {
 
-            res.render("buat-aduan", obj)
+              let obj = {
+                pentadbir: pentadbir,
+                logged: logged,
+                juruteknik: juruteknik,
+                user: user,
+                rowsOfBangunan: rowsOfBangunan,
+                rowsOfLokasi: rowsOfLokasi,
+                rowsOfKategori: rowsOfKategori,
+                rowsOfItem: rowsOfItem,
+                infoStaf: rowsOfIDStaf[0],
+                rowsOfSekolah: rowsOfSekolah,
+                success: success
+              }
 
-            success = false
+              res.render("buat-aduan", obj)
+
+              success = false
+
+            })
+
+
 
           })
 
