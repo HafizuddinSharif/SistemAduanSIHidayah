@@ -47,11 +47,12 @@ const saltRounds = 10;
 // Establishing connection to database
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'password',
+  host     : 'eu-cdbr-west-03.cleardb.net',
+  user     : 'b3211226d393f6',
+  password : '465f4986',
   database : 'test_db'
 });
+
 
 connection.connect(function(err) {
   if (err) {
@@ -87,7 +88,7 @@ var success = false
 app.get('/', function(req, res) {
 
   res.redirect('/aduan')
-  
+
 })
 
 app.get("/aduan", checkNotAuthenticated, function(req, res) {
