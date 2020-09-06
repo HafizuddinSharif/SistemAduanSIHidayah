@@ -53,7 +53,6 @@ var connection = mysql.createConnection({
   database : 'test_db'
 });
 
-
 connection.connect(function(err) {
   if (err) {
     console.error('error connecting: ' + err.stack);
@@ -755,9 +754,9 @@ function checkNotAuthenticated(req, res, next) {
 let port = process.env.PORT;
 
 if (port == null || port == "") {
-  port = 3000;
+  port = 3306;
 }
 
 app.listen(port, function() {
-  console.log("Server started on port 3000")
+  console.log("Server started on port 3306")
 })
