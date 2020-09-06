@@ -84,6 +84,12 @@ var success = false
 
 // GET Requests
 
+app.get('/', function(req, res) {
+
+  res.redirect('/aduan')
+  
+})
+
 app.get("/aduan", checkNotAuthenticated, function(req, res) {
 
   user = ""
