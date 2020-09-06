@@ -50,7 +50,7 @@ var connection = mysql.createConnection({
   host     : 'eu-cdbr-west-03.cleardb.net',
   user     : 'b3211226d393f6',
   password : '465f4986',
-  database : 'test_db'
+  database : 'heroku_1f70408afe16a7d'
 });
 
 connection.connect(function(err) {
