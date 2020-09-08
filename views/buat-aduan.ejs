@@ -79,6 +79,17 @@
                 </td>
               </tr>
               <tr>
+                <td><label for="kawasan">Kawasan</label></td>
+                <td>
+                  <select class="kawasan" name="kawasan" required>
+                    <option value="" selected disabled>Sila Pilih</option>
+                    <% rowsOfKawasan.forEach( function(row) { %>
+                    <option value="<%= row.PK_Kawasan %>"><%= row.Nama_Kawasan %> </option>
+                    <% }) %>
+                  </select>
+                </td>
+              </tr>
+              <tr>
                 <td><label for="bangunan">Bangunan</label></td>
                 <td>
                   <select class="bangunan" name="bangunan" required>
@@ -148,6 +159,41 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/public/javascript/buat-aduan.js"></script>
     <script type="text/javascript">
+
+    $(".sekolah").click( function(event) {
+
+      let current_sekolah = document.aduan.sekolah.value
+      let index = 1
+      let data = <%- JSON.stringify(rowsOfKawasan) %>
+
+      document.aduan.kawasan.options.length = 0
+      document.aduan.kawasan.options[0] = new Option("Sila Pilih", "0", true, false)
+
+      data.forEach( function(row) {
+        if (row.FK_Sekolah == current_sekolah) {
+          document.aduan.kawasan.options[index] = new Option(`${row.Nama_Kawasan}`, `${row.PK_Kawasan}`, false, false)
+          index++
+        }
+      })
+    })
+
+    $(".kawasan").click( function(event) {
+
+      let current_kawasan = document.aduan.kawasan.value
+      let index = 1
+      let data = <%- JSON.stringify(rowsOfBangunan) %>
+
+      document.aduan.bangunan.options.length = 0
+      document.aduan.bangunan.options[0] = new Option("Sila Pilih", "0", true, false)
+
+      data.forEach( function(row) {
+        if (row.FK_Kawasan == current_kawasan) {
+          document.aduan.bangunan.options[index] = new Option(`${row.Nama_Bangunan}`, `${row.PK_Bangunan}`, false, false)
+          index++
+        }
+      })
+    })
+
     $(".bangunan").click( function(event) {
 
       let current_bangunan = document.aduan.bangunan.value
@@ -163,8 +209,9 @@
           index++
         }
       })
-
     })
+
+
     </script>
 
   </body>
