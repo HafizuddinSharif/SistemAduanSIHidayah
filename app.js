@@ -169,14 +169,14 @@ app.get("/aduan/:user/buat-aduan", checkAunthenticated, function(req, res) {
 
 app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 
-  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, bangunan.Nama_Bangunan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, aduan.Catatan_Kerosakan, aduan.FK_Tindakan
+  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, bangunan2.Nama_Bangunan, lokasi2.Nama_Lokasi, bidang_tugas.Nama_Bidang, aduan.Catatan_Kerosakan, aduan.FK_Tindakan
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
-            JOIN bangunan
-            	ON aduan.FK_Kawasan = bangunan.PK_Bangunan
-            JOIN info_lokasi
-            	ON aduan.FK_Lokasi = info_lokasi.PK_Lokasi
+            JOIN bangunan2
+            	ON aduan.FK_Bangunan = bangunan2.PK_Bangunan
+            JOIN lokasi2
+            	ON aduan.FK_Lokasi = lokasi2.PK_Lokasi
             JOIN bidang_tugas
             	ON aduan.FK_Bidang_Tugas = bidang_tugas.No_Bidang
             WHERE direktori_pengguna.ID = ${id}
@@ -200,14 +200,14 @@ app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 
 app.get("/aduan/:user/semakan-aduan/senarai-aduan/:no_aduan", function(req, res) {
 
-  let sql = `SELECT direktori_pengguna.ID_Pengguna, aduan.No_Aduan, aduan.Tarikh_Aduan, bangunan.Nama_Bangunan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, senarai_peralatan.Nama_Peralatan, dp.Nama_Staf, Tarikh_Terima_Tugasan, Komen_Teknikal, Tarikh_Selesai
+  let sql = `SELECT direktori_pengguna.ID_Pengguna, aduan.No_Aduan, aduan.Tarikh_Aduan, bangunan2.Nama_Bangunan, lokasi2.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, senarai_peralatan.Nama_Peralatan, dp.Nama_Staf, Tarikh_Terima_Tugasan, Komen_Teknikal, Tarikh_Selesai
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
-            JOIN bangunan
-            	ON aduan.FK_Kawasan = bangunan.PK_Bangunan
-            JOIN info_lokasi
-            	ON aduan.FK_Lokasi = info_lokasi.PK_Lokasi
+            JOIN bangunan2
+            	ON aduan.FK_Bangunan = bangunan2.PK_Bangunan
+            JOIN lokasi2
+            	ON aduan.FK_Lokasi = lokasi2.PK_Lokasi
             JOIN kategori
             	ON aduan.FK_Kategori = kategori.PK_Kategori
             JOIN bidang_tugas
@@ -323,14 +323,14 @@ app.get("/aduan/:user/direktori-pengguna/:id_staf", function(req, res) {
 
 app.get("/aduan/:user/tindakan", function(req, res) {
 
-  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, bangunan.Nama_Bangunan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, aduan.FK_Tindakan
+  let sql = `SELECT aduan.ID, aduan.No_Aduan, aduan.Tarikh_Aduan, bangunan2.Nama_Bangunan, lokasi2.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, aduan.FK_Tindakan
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
-            JOIN bangunan
-            	ON aduan.FK_Kawasan = bangunan.PK_Bangunan
-            JOIN info_lokasi
-            	ON aduan.FK_Lokasi = info_lokasi.PK_Lokasi
+            JOIN bangunan2
+            	ON aduan.FK_Bangunan = bangunan2.PK_Bangunan
+            JOIN lokasi2
+            	ON aduan.FK_Lokasi = lokasi2.PK_Lokasi
             JOIN kategori
             	ON aduan.FK_Kategori = kategori.PK_Kategori
             JOIN bidang_tugas
@@ -355,14 +355,14 @@ app.get("/aduan/:user/tindakan", function(req, res) {
 
 app.get("/aduan/:user/tindakan/:no_tindakan", function(req, res) {
 
-  let sql = `SELECT direktori_pengguna.ID_Pengguna, aduan.No_Aduan, aduan.Tarikh_Aduan, bangunan.Nama_Bangunan, info_lokasi.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, senarai_peralatan.Nama_Peralatan
+  let sql = `SELECT direktori_pengguna.ID_Pengguna, aduan.No_Aduan, aduan.Tarikh_Aduan, bangunan2.Nama_Bangunan, lokasi2.Nama_Lokasi, bidang_tugas.Nama_Bidang, kategori.Nama_Kategori, aduan.Catatan_Kerosakan, senarai_peralatan.Nama_Peralatan
             FROM aduan
             JOIN direktori_pengguna
             	ON aduan.FK_Pengadu = direktori_pengguna.ID
-            JOIN bangunan
-            	ON aduan.FK_Kawasan = bangunan.PK_Bangunan
-            JOIN info_lokasi
-            	ON aduan.FK_Lokasi = info_lokasi.PK_Lokasi
+            JOIN bangunan2
+            	ON aduan.FK_Bangunan = bangunan2.PK_Bangunan
+            JOIN lokasi2
+            	ON aduan.FK_Lokasi = lokasi2.PK_Lokasi
             JOIN kategori
             	ON aduan.FK_Kategori = kategori.PK_Kategori
             JOIN bidang_tugas
@@ -555,7 +555,7 @@ app.post("/buat-aduan", function(req, res) {
 
     let real_no_aduan =  `AG${written_tahun}${written_bulan}-${number}`
 
-    let columns = `No_Aduan, Tarikh_Aduan, FK_Pengadu, FK_Kawasan, FK_Lokasi, Catatan_Kerosakan, FK_Rujukan_Item, FK_Kategori, FK_Bidang_Tugas, Tahun, Bulan`
+    let columns = `No_Aduan, Tarikh_Aduan, FK_Pengadu, FK_Bangunan, FK_Lokasi, Catatan_Kerosakan, FK_Rujukan_Item, FK_Kategori, FK_Bidang_Tugas, Tahun, Bulan`
     let values = `'${real_no_aduan}', now(), '${id_pengguna}', '${bangunan}', '${lokasi}', '${perihal}', '${item}', '${kategori}', '${jenis_aduan}', '${tahun}', '${bulan}'`
     let sql = `INSERT INTO aduan (${columns}) VALUES (${values})`
 
@@ -754,9 +754,9 @@ function checkNotAuthenticated(req, res, next) {
 let port = process.env.PORT;
 
 if (port == null || port == "") {
-  port = 3306;
+  port = 3000;
 }
 
 app.listen(port, function() {
-  console.log("Server started on port 3306")
+  console.log("Server started on port 3000")
 })
