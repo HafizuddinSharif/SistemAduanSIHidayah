@@ -54,32 +54,28 @@ var connection = mysql.createConnection({
   database : 'heroku_1f70408afe16a7d'
 });
 
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
+connectToDB = function () {
+  connection.connect(function(err) {
+    if (err) {
+      setTimeout(connectToDB, 2000)
+    }
+  });
 
-  console.log('connected as id ' + connection.threadId);
-});
-
-// Maintains connection with DB
-var options = {
-  host     : 'eu-cdbr-west-03.cleardb.net',
-  user     : 'b3211226d393f6',
-  password : '465f4986',
-  database : 'heroku_1f70408afe16a7d'
+  connection.on('error', function(err) {
+    systemMessage('Error: ' + err)
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      connectToDB()
+    } else {
+      throw err
+    }
+  });
 }
 
-var sessionStore = new MySQLStore(options);
+systemMessage = function(messsage) {
+  console.log(message)
+}
 
-app.use(session({
-	key: 'session_cookie_name',
-	secret: 'session_cookie_secret',
-	store: sessionStore,
-	resave: false,
-	saveUninitialized: false
-}));
+connectToDB();
 
 // To get and store the direktori_pengguna
 
