@@ -10,6 +10,7 @@ const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session')
 const methodOverride = require('method-override')
+var MySQLStore = require('express-mysql-session')(session);
 
 const app = express()
 
@@ -62,15 +63,23 @@ connection.connect(function(err) {
   console.log('connected as id ' + connection.threadId);
 });
 
-// To make sure server keep on connecting to DB when idle
-let pool = mysql.createPool(connection);
+// Maintains connection with DB
+var options = {
+  host     : 'eu-cdbr-west-03.cleardb.net',
+  user     : 'b3211226d393f6',
+  password : '465f4986',
+  database : 'heroku_1f70408afe16a7d'
+}
 
-pool.on('connection', function (_conn) {
-    if (_conn) {
-        logger.info('Connected the database via threadId %d!!', _conn.threadId);
-        _conn.query('SET SESSION auto_increment_increment=1');
-    }
-});
+var sessionStore = new MySQLStore(options);
+
+app.use(session({
+	key: 'session_cookie_name',
+	secret: 'session_cookie_secret',
+	store: sessionStore,
+	resave: false,
+	saveUninitialized: false
+}));
 
 // To get and store the direktori_pengguna
 
