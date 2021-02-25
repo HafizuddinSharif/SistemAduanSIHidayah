@@ -71,7 +71,7 @@ connectToDB = function () {
   });
 }
 
-systemMessage = function(messsage) {
+systemMessage = function(message) {
   console.log(message)
 }
 
