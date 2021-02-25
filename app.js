@@ -62,6 +62,15 @@ connection.connect(function(err) {
   console.log('connected as id ' + connection.threadId);
 });
 
+const pool = mysql.createPool({
+  host     : 'eu-cdbr-west-03.cleardb.net',
+  user     : 'b3211226d393f6',
+  password : '465f4986',
+  database : 'heroku_1f70408afe16a7d'
+});
+
+// ... later
+pool.query('select 1 + 1', (err, rows) => { /* */ });
 // To get and store the direktori_pengguna
 
 var users = []
