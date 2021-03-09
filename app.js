@@ -48,10 +48,10 @@ const saltRounds = 10;
 // Establishing connection to database
 
 var connection = mysql.createConnection({
-  host     : 'eu-cdbr-west-03.cleardb.net',
-  user     : 'b3211226d393f6',
-  password : '465f4986',
-  database : 'heroku_1f70408afe16a7d'
+  host     : process.env.HOST_NAME,
+  user     : process.env.USER_NAME,
+  password : process.env.PASSWORD,
+  database : process.env.DATABASE
 });
 
 connectToDB = function () {
@@ -168,8 +168,6 @@ app.get("/aduan/:user/buat-aduan", checkAunthenticated, function(req, res) {
 
             })
 
-
-
           })
 
         })
@@ -181,10 +179,6 @@ app.get("/aduan/:user/buat-aduan", checkAunthenticated, function(req, res) {
   })
 
 })
-
-// app.get("/aduan/user/semakan-aduan", function(req, res) {
-//   res.render("semakan-aduan")
-// })
 
 app.get("/aduan/:user/semakan-aduan/senarai-aduan", function(req, res) {
 
